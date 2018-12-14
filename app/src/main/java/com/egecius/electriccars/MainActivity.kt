@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun printCars() {
-        val cars = CarsRepository().cars
+        val cars = CarsRepository().carsList
         Log.i("Eg:MainActivity:18", "printCars cars $cars")
     }
 }
