@@ -2,7 +2,8 @@ package com.egecius.electriccars
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,11 +11,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        printCars()
+        setupUI()
     }
 
-    private fun printCars() {
+    private fun setupUI() {
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+
         val cars = CarsRepository().carsList
-        Log.i("Eg:MainActivity:18", "printCars cars $cars")
+        recyclerView.adapter = CarRecyclerViewAdapter(cars)
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
+
 }
