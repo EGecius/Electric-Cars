@@ -1,0 +1,26 @@
+[ 
+	{
+		"name": "Nissan Leaf",
+		"img": "https://st.motortrend.com/uploads/sites/10/2015/11/2012-nissan-leaf-sl-hatchback-angular-rear.png"
+	},
+	{
+		"name": "Renaul Zoe",
+		"img": "https://car-images.bauersecure.com/pagefiles/74548/1040x585/renault-zoe-esport-01.jpg"
+	},
+	{
+		"name": "Renault Kangoo",
+		"img": "https://parkers-images.bauersecure.com/pagefiles/195207/cut-out/600x400/renault_kangoo08.jpg"
+	},
+	{
+		"name": "Jaguar I-Pace",
+		"img": "https://wi-images.condecdn.net/image/QGXQO598qyn/crop/1620/f/jaguar-i-pace-uk-review-wired-12.jpg"
+	},
+	{
+		"name": "BMWi3",
+		"img": "https://www.bmwusa.com/content/dam/bmwusa/BMWi/i3/i3-irange.png"
+	},
+	{
+		"name": "Tesla 3",
+		"img": "https://spectrum.ieee.org/image/MzAzNzY4Ng.jpeg"
+	}
+]
