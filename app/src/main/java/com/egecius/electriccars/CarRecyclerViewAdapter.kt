@@ -1,0 +1,33 @@
+package com.egecius.electriccars
+
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.Adapter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+
+class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.car_list_item, viewGroup, false)
+        return MyViewHolder(view)
+    }
+
+    override fun onBindViewHolder(myViewHolder: MyViewHolder, i: Int) {
+        myViewHolder.title.text = carList[i].name
+        val imgUrl = carList[i].img
+        Picasso.get().load(imgUrl).into(myViewHolder.image)
+    }
+
+    override fun getItemCount(): Int {
+        return carList.size
+    }
+
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var title: TextView = itemView.findViewById(R.id.title)
+        var image: ImageView = itemView.findViewById(R.id.image)
+    }
+}
