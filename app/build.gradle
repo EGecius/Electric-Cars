@@ -24,6 +24,8 @@ ext {
     lifecycle_version = "2.0.0"
     rxJavaVersion = "2.1.0"
     rxandroidVersion = "2.0.1"
+    assertjVersion = "2.6.0"
+    mockitoVersion = "2.13.0"
 }
 
 dependencies {
@@ -48,4 +50,7 @@ dependencies {
     }
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+
 }
