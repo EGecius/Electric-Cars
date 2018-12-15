@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<List<Car>>() {
 
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     override fun onActive() {
         disposable = carsRepository.getCars()
