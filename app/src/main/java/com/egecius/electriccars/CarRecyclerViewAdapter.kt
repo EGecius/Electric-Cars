@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
 class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {

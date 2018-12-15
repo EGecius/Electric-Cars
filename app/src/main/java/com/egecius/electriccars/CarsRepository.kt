@@ -1,5 +1,6 @@
 package com.egecius.electriccars
 
+import com.egecius.electriccars.room.Car
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

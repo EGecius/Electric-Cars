@@ -1,5 +1,6 @@
 package com.egecius.electriccars
 
+import com.egecius.electriccars.room.Car
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import java.io.IOException

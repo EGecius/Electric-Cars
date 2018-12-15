@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.egecius.electriccars.room.Car
 import io.reactivex.Completable
 
 class MainActivity : AppCompatActivity(), MainActivityView {

@@ -1,6 +1,7 @@
 package com.egecius.electriccars
 
 import androidx.lifecycle.LiveData
+import com.egecius.electriccars.room.Car
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
