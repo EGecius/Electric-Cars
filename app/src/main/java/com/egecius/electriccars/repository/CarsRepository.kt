@@ -25,7 +25,7 @@ class CarsRepository(retrofitAdapter: RetrofitAdapter, private val carsDatabase:
             carDao.insertCar(car)
         }
 
-        val allCars = carDao.allCars
+        val allCars = carDao.loadAllCars()
         Log.i("Eg:CarsRepository:29", "storeCarsInDatabase allCars.size " + allCars.size)
         Log.i("Eg:CarsRepository:38", "storeCarsInDatabase allCars: $allCars")
     }
