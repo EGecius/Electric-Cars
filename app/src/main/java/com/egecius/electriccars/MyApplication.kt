@@ -3,6 +3,7 @@
 package com.egecius.electriccars
 
 import android.app.Application
+import io.reactivex.Single
 
 class MyApplication : Application() {
 
@@ -11,6 +12,9 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         mockWebSeverInitializer.init()
+
     }
+
+    fun getMockServerHostName(): Single<String> = mockWebSeverInitializer.getHostName()
 
 }
