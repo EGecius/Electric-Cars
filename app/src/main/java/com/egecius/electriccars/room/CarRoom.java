@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -29,5 +30,19 @@ public class CarRoom {
         this.img = img;
     }
 
+    public CarRoom(@NotNull Car car) {
+        this.id = UUID.randomUUID().toString();
+        this.name = car.getName();
+        this.img = car.getImg();
+    }
+
+    @Override
+    public String toString() {
+        return "CarRoom{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", img='" + img + '\'' +
+                '}';
+    }
 }
 
