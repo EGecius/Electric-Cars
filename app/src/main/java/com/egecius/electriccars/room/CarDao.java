@@ -10,10 +10,10 @@ import io.reactivex.Flowable;
 public interface CarDao {
 
     @Query("SELECT * FROM Cars")
-    Flowable<Car> getCar();
+    Flowable<CarRoom> getCar();
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    void insertCar(Car car);
+    void insertCar(CarRoom car);
 
     @Query("DELETE FROM Cars")
     void deleteAllCars();
