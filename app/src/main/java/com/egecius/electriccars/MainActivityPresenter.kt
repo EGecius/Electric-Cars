@@ -1,8 +1,10 @@
 package com.egecius.electriccars
 
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.egecius.electriccars.room.CarsDatabase
 
 class MainActivityPresenter : ViewModel() {
 
@@ -12,10 +14,12 @@ class MainActivityPresenter : ViewModel() {
     fun startPresenting(
         view: MainActivityView,
         lifecycleOwner: LifecycleOwner,
-        mockSeverUrl: String) {
-
+        mockSeverUrl: String,
+        context: Context
+    ) {
         this.view = view
-        carsLiveData = CarsLiveData(CarsRepository(RetrofitAdapter(mockSeverUrl)))
+        val carsDatabase = CarsDatabase.getInstance(context)
+        carsLiveData = CarsLiveData(CarsRepository(RetrofitAdapter(mockSeverUrl), carsDatabase))
 
         showCars(lifecycleOwner)
     }
