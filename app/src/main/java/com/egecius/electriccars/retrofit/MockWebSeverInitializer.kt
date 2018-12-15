@@ -1,4 +1,4 @@
-package com.egecius.electriccars
+package com.egecius.electriccars.retrofit
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

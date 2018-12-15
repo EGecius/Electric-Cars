@@ -1,4 +1,4 @@
-package com.egecius.electriccars
+package com.egecius.electriccars.repository
 
 import androidx.lifecycle.LiveData
 import com.egecius.electriccars.room.Car

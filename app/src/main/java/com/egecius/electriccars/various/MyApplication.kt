@@ -1,10 +1,11 @@
 @file:Suppress("unused")
 
-package com.egecius.electriccars
+package com.egecius.electriccars.various
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
+import com.egecius.electriccars.retrofit.MockWebSeverInitializer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer

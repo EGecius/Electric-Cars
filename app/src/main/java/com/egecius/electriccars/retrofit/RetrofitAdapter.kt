@@ -1,4 +1,4 @@
-package com.egecius.electriccars
+package com.egecius.electriccars.retrofit
 
 import com.egecius.electriccars.room.Car
 import io.reactivex.Single

@@ -1,6 +1,7 @@
-package com.egecius.electriccars
+package com.egecius.electriccars.repository
 
 import android.util.Log
+import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarsDatabase
 import io.reactivex.Single

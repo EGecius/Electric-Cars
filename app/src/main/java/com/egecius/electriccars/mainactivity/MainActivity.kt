@@ -1,10 +1,12 @@
-package com.egecius.electriccars
+package com.egecius.electriccars.mainactivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.egecius.electriccars.various.MyApplication
+import com.egecius.electriccars.R
 import com.egecius.electriccars.room.Car
 import io.reactivex.Completable
 
