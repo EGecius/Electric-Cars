@@ -4,7 +4,6 @@ import android.util.Log
 import com.egecius.electriccars.retrofit.CarsRetrofitService
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
-import io.reactivex.Completable
 import io.reactivex.Single
 
 class CarsRepository(
@@ -14,13 +13,16 @@ class CarsRepository(
 
     fun getCars(): Single<List<Car>> {
         return carsRetrofitService.cars()
-            .flatMapCompletable {
-                Completable.fromAction {
-                    storeCarsInDatabase(it)
-                }
-            }.toSingle {
-                carDao.loadAllCars()
-            }
+            .flatMap { returnInternetOrDbData(it) }
+    }
+
+    private fun returnInternetOrDbData(dataInternet: List<Car>): Single<List<Car>> {
+
+        return if (dataInternet.isEmpty()) {
+            Single.just(carDao.loadAllCars())
+        } else {
+            Single.just(dataInternet)
+        }
     }
 
     private fun storeCarsInDatabase(cars: List<Car>) {

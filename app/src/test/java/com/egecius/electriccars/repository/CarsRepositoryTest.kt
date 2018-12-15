@@ -11,7 +11,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class CarsRepositoryTest {
 
     private lateinit var mSut: CarsRepository
@@ -41,6 +41,20 @@ class CarsRepositoryTest {
         testObserver.assertResult(dataInternet)
     }
 
+    @Test
+    fun `returns data from internet when db data missing`() {
+        givenInternetDataAvailable()
+        givenDbDataMissing()
+
+        val testObserver = mSut.getCars().test()
+
+        testObserver.assertResult(dataInternet)
+    }
+
+    private fun givenDbDataMissing() {
+        given(carDao.loadAllCars()).willReturn(emptyList())
+    }
+
     private fun givenInternetDataAvailable() {
         given(carsRetrofitService.cars()).willReturn(Single.just(dataInternet))
     }
@@ -63,7 +77,15 @@ class CarsRepositoryTest {
         given(carsRetrofitService.cars()).willReturn(Single.just(ArrayList()))
     }
 
-    // TODO: 15/12/2018 uses internet data even when db available
+    @Test
+    fun `return empty data when both internet and DB missing`() {
+        givenInternetDataMissing()
+        givenDbDataMissing()
+
+        val testObserver = mSut.getCars().test()
+
+        testObserver.assertResult(emptyList())
+    }
 
     // TODO: 15/12/2018 stores to db when internet data received
 
