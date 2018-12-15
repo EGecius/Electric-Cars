@@ -1,6 +1,5 @@
 package com.egecius.electriccars.repository
 
-import android.util.Log
 import com.egecius.electriccars.retrofit.CarsRetrofitService
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
@@ -13,6 +12,7 @@ class CarsRepository(
 
     fun getCars(): Single<List<Car>> {
         return carsRetrofitService.cars()
+            .doOnSuccess { cars -> storeCarsInDatabase(cars) }
             .flatMap { returnInternetOrDbData(it) }
     }
 
@@ -27,7 +27,7 @@ class CarsRepository(
 
     private fun storeCarsInDatabase(cars: List<Car>) {
         for (car in cars) {
-            Log.v("Eg:CarsRepository:27", "storeCarsInDatabase inserting: ${car.name}")
+//            Log.v("Eg:CarsRepository:27", "storeCarsInDatabase inserting: ${car.name}")
             carDao.insertCar(car)
         }
     }

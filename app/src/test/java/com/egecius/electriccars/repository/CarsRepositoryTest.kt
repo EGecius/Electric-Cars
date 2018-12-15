@@ -9,6 +9,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.BDDMockito.given
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner.Silent::class)
@@ -87,6 +88,13 @@ class CarsRepositoryTest {
         testObserver.assertResult(emptyList())
     }
 
-    // TODO: 15/12/2018 stores to db when internet data received
+    @Test
+    fun `stores to db when internet data received`() {
+    	givenInternetDataAvailable()
+
+        mSut.getCars().test()
+
+        verify(carDao).insertCar(carInternet)
+    }
 
 }
