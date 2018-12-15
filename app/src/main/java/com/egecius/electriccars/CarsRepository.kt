@@ -7,14 +7,14 @@ import java.util.*
 
 class CarsRepository {
 
-    internal val carsList: List<Car>
+    internal val cars: List<Car>
         get() {
 
             val type = Types.newParameterizedType(List::class.java, Car::class.java)
             val adapter = Moshi.Builder().build().adapter<List<Car>>(type)
             var cars: List<Car> = ArrayList()
             try {
-                cars = adapter.fromJson(this.cars)!!
+                cars = adapter.fromJson(this.carsAsString)!!
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -22,7 +22,7 @@ class CarsRepository {
             return cars
         }
 
-    private val cars: String
+    private val carsAsString: String
         get() {
             val inputStream = javaClass.getResourceAsStream("/" + "electric_cars.json")
             return Scanner(inputStream!!).useDelimiter("\\A").next()
