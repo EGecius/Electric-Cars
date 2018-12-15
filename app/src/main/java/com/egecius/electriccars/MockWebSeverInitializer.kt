@@ -32,7 +32,7 @@ class MockWebSeverInitializer {
     }
 
     private fun getElectricCars(): String {
-        val inputStream = javaClass.getResourceAsStream("/electric_cars")
+        val inputStream = javaClass.getResourceAsStream("/" + "electric_cars.json")
         return Scanner(inputStream).useDelimiter("\\A").next()
     }
 
