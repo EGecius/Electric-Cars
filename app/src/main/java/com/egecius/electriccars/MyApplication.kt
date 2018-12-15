@@ -2,8 +2,13 @@
 
 package com.egecius.electriccars
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 
 class MyApplication : Application() {
 
@@ -13,8 +18,19 @@ class MyApplication : Application() {
         super.onCreate()
         mockWebSeverInitializer.init()
 
+        printUrl()
     }
 
-    fun getMockServerHostName(): Single<String> = mockWebSeverInitializer.getHostName()
+    @SuppressLint("CheckResult")
+    private fun printUrl() {
+        getMockServerUrl()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe( Consumer {
+                Log.v("Eg:MyApplication:27", "printUrl url: $it")
+            })
+    }
+
+    fun getMockServerUrl(): Single<String> = mockWebSeverInitializer.getUrl()
 
 }

@@ -36,8 +36,8 @@ class MockWebSeverInitializer {
         return Scanner(inputStream).useDelimiter("\\A").next()
     }
 
-    fun getHostName(): Single<String> {
-        return Single.fromCallable { mockWebServer.hostName }
+    fun getUrl(): Single<String> {
+        return Single.fromCallable { mockWebServer.url("/").toString() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
