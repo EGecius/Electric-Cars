@@ -1,19 +1,19 @@
 package com.egecius.electriccars.repository
 
 import android.util.Log
-import com.egecius.electriccars.retrofit.RetrofitAdapter
+import com.egecius.electriccars.retrofit.CarsRetrofitService
 import com.egecius.electriccars.room.Car
-import com.egecius.electriccars.room.CarsDatabase
+import com.egecius.electriccars.room.CarDao
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class CarsRepository(retrofitAdapter: RetrofitAdapter, carsDatabase: CarsDatabase) {
-
-    private val retrofitService = retrofitAdapter.setupRetrofit()
-    private val carDao = carsDatabase.carDao()!!
+class CarsRepository(
+    private val carsRetrofitService: CarsRetrofitService,
+    private val carDao: CarDao
+) {
 
     fun getCars(): Single<List<Car>> {
-        return retrofitService.cars()
+        return carsRetrofitService.cars()
             .flatMapCompletable {
                 Completable.fromAction {
                     storeCarsInDatabase(it)

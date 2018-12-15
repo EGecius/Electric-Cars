@@ -22,11 +22,12 @@ class MainActivityPresenter : ViewModel() {
     ) {
         this.view = view
         val carsDatabase = CarsDatabase.getInstance(context)
-        carsLiveData = CarsLiveData(
-            CarsRepository(
-                RetrofitAdapter(mockSeverUrl), carsDatabase
-            )
+
+        val carsRepository = CarsRepository(
+            RetrofitAdapter(mockSeverUrl).setupRetrofit(),
+            carsDatabase.carDao()
         )
+        carsLiveData = CarsLiveData(carsRepository)
 
         showCars(lifecycleOwner)
     }
