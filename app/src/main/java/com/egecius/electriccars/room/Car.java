@@ -49,7 +49,7 @@ public class Car {
         return result;
     }
 
-    @Override
+    @Override @NonNull
     public String toString() {
         return "Car{" +
                 "id='" + id + '\'' +
