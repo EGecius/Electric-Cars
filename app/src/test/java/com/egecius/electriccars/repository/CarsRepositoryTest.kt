@@ -45,14 +45,14 @@ class CarsRepositoryTest {
     @Test
     fun `returns data from internet when db data missing`() {
         givenInternetDataAvailable()
-        givenDbDataMissing()
+        givenDbDataEmpty()
 
         val testObserver = mSut.getCars().test()
 
         testObserver.assertResult(dataInternet)
     }
 
-    private fun givenDbDataMissing() {
+    private fun givenDbDataEmpty() {
         given(carDao.loadAllCars()).willReturn(emptyList())
     }
 
@@ -62,7 +62,7 @@ class CarsRepositoryTest {
 
     @Test
     fun `returns DB data when internet data missing`() {
-        givenInternetDataMissing()
+        givenInternetDataEmpty()
         givenDbDataAvailable()
 
         val testObserver = mSut.getCars().test()
@@ -74,14 +74,14 @@ class CarsRepositoryTest {
         given(carDao.loadAllCars()).willReturn(dataDb)
     }
 
-    private fun givenInternetDataMissing() {
-        given(carsRetrofitService.cars()).willReturn(Single.just(ArrayList()))
+    private fun givenInternetDataEmpty() {
+        given(carsRetrofitService.cars()).willReturn(Single.just(emptyList()))
     }
 
     @Test
     fun `return empty data when both internet and DB missing`() {
-        givenInternetDataMissing()
-        givenDbDataMissing()
+        givenInternetDataEmpty()
+        givenDbDataEmpty()
 
         val testObserver = mSut.getCars().test()
 
