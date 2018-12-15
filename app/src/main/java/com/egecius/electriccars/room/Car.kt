@@ -1,6 +1,6 @@
 package com.egecius.electriccars.room
 
-class Car(
+data class Car(
     var name: String,
     var img: String
 )
