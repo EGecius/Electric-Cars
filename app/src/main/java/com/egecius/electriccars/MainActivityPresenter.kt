@@ -15,7 +15,7 @@ class MainActivityPresenter : ViewModel() {
         mockSeverUrl: String) {
 
         this.view = view
-        carsLiveData = CarsLiveData(CarsRepository(mockSeverUrl))
+        carsLiveData = CarsLiveData(CarsRepository(RetrofitAdapter(mockSeverUrl)))
 
         showCars(lifecycleOwner)
     }
