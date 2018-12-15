@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     private fun startPresenting(mockServerUrl: String): Completable {
         return Completable.fromCallable {
-            presenter.startPresenting(this, mockServerUrl)
+            presenter.startPresenting(this, this, mockServerUrl)
         }
     }
 
