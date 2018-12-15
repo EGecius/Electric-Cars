@@ -20,7 +20,7 @@ class MockWebSeverInitializer {
     private fun setupMockWebSever() {
         val dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest?): MockResponse {
-                if (request?.path.equals("electric_cars")) {
+                if (request?.path.equals("/electric_cars")) {
                     return MockResponse().setBody(getElectricCars())
                 }
                 return MockResponse().setResponseCode(404)
