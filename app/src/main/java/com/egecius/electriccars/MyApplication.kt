@@ -18,16 +18,16 @@ class MyApplication : Application() {
         super.onCreate()
         mockWebSeverInitializer.init()
 
-        printUrl()
+//        printMockWebServerUrl()
     }
 
     @SuppressLint("CheckResult")
-    private fun printUrl() {
+    private fun printMockWebServerUrl() {
         getMockServerUrl()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe( Consumer {
-                Log.v("Eg:MyApplication:27", "printUrl url: $it")
+                Log.v("Eg:MyApplication:27", "printMockWebServerUrl url: $it")
             })
     }
 
