@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 class MainActivityPresenter : ViewModel() {
 
     fun startPresenting(view: MainActivityView) {
-        val cars = CarsRepository().cars
+        val cars = CarsFileReader().cars
         view.showCars(cars)
     }
 
