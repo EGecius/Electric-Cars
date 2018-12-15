@@ -6,17 +6,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
 @Entity(tableName = "cars")
 public class CarRoom {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo (name = "id")
-    public String id;
-
-    @NonNull
     @ColumnInfo (name = "name")
     public String name;
 
@@ -25,22 +19,19 @@ public class CarRoom {
     public String img;
 
     public CarRoom(@NonNull String name, @NonNull String img) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.img = img;
     }
 
     public CarRoom(@NotNull Car car) {
-        this.id = UUID.randomUUID().toString();
         this.name = car.getName();
         this.img = car.getImg();
     }
 
-    @Override
+    @Override @NonNull
     public String toString() {
         return "CarRoom{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", img='" + img + '\'' +
                 '}';
     }
