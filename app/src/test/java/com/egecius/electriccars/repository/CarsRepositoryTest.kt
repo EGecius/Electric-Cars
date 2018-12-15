@@ -22,11 +22,11 @@ class CarsRepositoryTest {
     private val carDao: CarDao = mock(CarDao::class.java)
 
     private val carInternet = Car("name internet", "img internet")
-    private val dataInternet: List<Car> = arrayListOf(carInternet)
+    private val dataInternet: List<Car> = listOf(carInternet)
 
 
     private val carDb = Car("name db", "img db")
-    private val dataDb : List<Car> = arrayListOf(carDb)
+    private val dataDb: List<Car> = listOf(carDb)
 
     @Before
     fun setUp() {
@@ -91,7 +91,7 @@ class CarsRepositoryTest {
 
     @Test
     fun `stores to db when internet data received`() {
-    	givenInternetDataAvailable()
+        givenInternetDataAvailable()
 
         mSut.getCars().test()
 
@@ -99,7 +99,8 @@ class CarsRepositoryTest {
     }
 
     // TODO: 15/12/2018 fix this test
-    @Test @Ignore
+    @Test
+    @Ignore
     fun `does not store to DB when internet data received is empty`() {
         givenInternetDataEmpty()
 
