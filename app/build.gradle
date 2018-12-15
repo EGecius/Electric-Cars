@@ -22,10 +22,10 @@ android {
 
 ext {
     lifecycle_version = "2.0.0"
-    rxJavaVersion = "2.1.0"
-    rxandroidVersion = "2.0.1"
-    assertjVersion = "2.6.0"
-    mockitoVersion = "2.13.0"
+    rxJava_version = "2.1.0"
+    rxandroid_version = "2.0.1"
+    assertj_version = "2.6.0"
+    mockito_version = "2.13.0"
     room_version = "2.0.0"
 }
 
@@ -41,8 +41,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     /* RxJava */
-    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-    implementation ("io.reactivex.rxjava2:rxandroid:${rxandroidVersion}") {
+    implementation "io.reactivex.rxjava2:rxjava:${rxJava_version}"
+    implementation ("io.reactivex.rxjava2:rxandroid:${rxandroid_version}") {
         exclude module: 'rxjava'
     }
 
@@ -51,19 +51,21 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
 
-    /* Other */
-    implementation 'com.squareup.moshi:moshi:1.8.0'
-    implementation ("com.squareup.picasso:picasso:2.71828") {
-        exclude group: 'com.android.support'
-    }
+    /* Retrofit & OkHttp */
     implementation 'com.squareup.okhttp3:mockwebserver:3.12.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
 
+    /* Other */
+    implementation 'com.squareup.moshi:moshi:1.8.0'
+    implementation ("com.squareup.picasso:picasso:2.71828") {
+        exclude group: 'com.android.support'
+    }
+
     /* Testing */
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
-    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "org.mockito:mockito-core:${mockito_version}"
+    testImplementation "org.assertj:assertj-core:${assertj_version}"
 
 }
