@@ -5,8 +5,6 @@ import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarRoom
 import com.egecius.electriccars.room.CarsDatabase
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class CarsRepository(retrofitAdapter: RetrofitAdapter, private val carsDatabase: CarsDatabase) {
 
@@ -27,12 +25,8 @@ class CarsRepository(retrofitAdapter: RetrofitAdapter, private val carsDatabase:
             carDao.insertCar(CarRoom(car))
         }
 
-        val disposable = carDao.car
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { car ->
-                Log.i("Eg:CarsRepository:26", "storeCarsInDatabase reading car: ${car.name}")
-            }
+        val allCars = carDao.allCars
+        Log.i("Eg:CarsRepository:38", "storeCarsInDatabase allCars: $allCars")
     }
 
 }
