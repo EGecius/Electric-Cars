@@ -2,7 +2,6 @@ package com.egecius.electriccars
 
 import android.util.Log
 import com.egecius.electriccars.room.Car
-import com.egecius.electriccars.room.CarRoom
 import com.egecius.electriccars.room.CarsDatabase
 import io.reactivex.Single
 
@@ -22,7 +21,7 @@ class CarsRepository(retrofitAdapter: RetrofitAdapter, private val carsDatabase:
         val carDao = carsDatabase.carDao()
         for (car in cars) {
             Log.v("Eg:CarsRepository:27", "storeCarsInDatabase inserting: ${car.name}")
-            carDao.insertCar(CarRoom(car))
+            carDao.insertCar(car)
         }
 
         val allCars = carDao.allCars

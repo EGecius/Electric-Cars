@@ -11,10 +11,10 @@ import java.util.List;
 public interface CarDao {
 
     @Query("SELECT * FROM cars")
-    List<CarRoom> getAllCars();
+    List<Car> getAllCars();
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
-    void insertCar(CarRoom car);
+    void insertCar(Car car);
 
     @Query("DELETE FROM Cars")
     void deleteAllCars();
