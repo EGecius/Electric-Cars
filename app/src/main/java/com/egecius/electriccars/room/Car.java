@@ -3,7 +3,6 @@ package com.egecius.electriccars.room;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.UUID;
@@ -14,17 +13,16 @@ public class Car {
     @NonNull
     @PrimaryKey
     @ColumnInfo (name = "id")
-    public final String id;
+    public String id;
 
     @NonNull
     @ColumnInfo (name = "name")
-    public final String name;
+    public String name;
 
     @NonNull
     @ColumnInfo (name = "img")
-    public final String img;
+    public String img;
 
-    @Ignore
     public Car(@NonNull String name, @NonNull String img) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
