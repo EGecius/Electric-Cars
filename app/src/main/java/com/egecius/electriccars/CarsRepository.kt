@@ -20,21 +20,19 @@ class CarsRepository(retrofitAdapter: RetrofitAdapter, private val carsDatabase:
     }
 
     private fun storeCarsInDatabase(cars: List<Car>) {
-    	Log.d("Eg:CarsRepository:23", "storeCarsInDatabase cars $cars")
 
         val carDao = carsDatabase.carDao()
         for (car in cars) {
+            Log.v("Eg:CarsRepository:27", "storeCarsInDatabase inserting: ${car.name}")
             carDao.insertCar(CarRoom(car))
         }
 
         val disposable = carDao.car
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { it ->
-                Log.i("Eg:CarsRepository:26", "storeCarsInDatabase car: $it")
+            .subscribe { car ->
+                Log.i("Eg:CarsRepository:26", "storeCarsInDatabase reading car: ${car.name}")
             }
-
-
     }
 
 }
