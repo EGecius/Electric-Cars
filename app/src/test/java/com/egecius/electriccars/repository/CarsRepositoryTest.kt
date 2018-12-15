@@ -5,11 +5,12 @@ import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
 import io.reactivex.Single
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
 import org.mockito.BDDMockito.given
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner.Silent::class)
@@ -95,6 +96,16 @@ class CarsRepositoryTest {
         mSut.getCars().test()
 
         verify(carDao).insertCar(carInternet)
+    }
+
+    // TODO: 15/12/2018 fix this test
+    @Test @Ignore
+    fun `does not store to DB when internet data received is empty`() {
+        givenInternetDataEmpty()
+
+        mSut.getCars().test()
+
+        verify(carDao, never()).insertCar(any())
     }
 
 }
