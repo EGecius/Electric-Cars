@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.Completable
 
 class MainActivity : AppCompatActivity(), MainActivityView {
     private lateinit var presenter : MainActivityPresenter
@@ -13,9 +14,21 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initPresenter()
+    }
 
+    private fun initPresenter() {
         presenter = ViewModelProviders.of(this).get(MainActivityPresenter::class.java)
-        presenter.startPresenting(this)
+        val myApplication = application as MyApplication
+        myApplication.getMockServerUrl()
+            .flatMapCompletable { startPresenting(it) }
+            .subscribe()
+    }
+
+    private fun startPresenting(mockServerUrl: String): Completable {
+        return Completable.fromCallable {
+            presenter.startPresenting(this, mockServerUrl)
+        }
     }
 
     override fun showCars(cars: List<Car>) {

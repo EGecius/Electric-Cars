@@ -6,7 +6,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-class CarsRepository {
+class CarsRepository(private val mockServerUrl: String) {
 
     private val retrofitService = setupRetrofit()
 
@@ -16,10 +16,8 @@ class CarsRepository {
 
     private fun setupRetrofit(): CarsRetrofitService {
 
-        // TODO: 15/12/2018 pass correct base url
-
         return Retrofit.Builder()
-            .baseUrl("localhost")
+            .baseUrl(mockServerUrl)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
