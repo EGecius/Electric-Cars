@@ -51,7 +51,7 @@ class MockWebSeverInitializer {
 
     companion object {
     	const val PORT = 54034
-        const val BASE_URL = "http://localhost:$PORT"
+        const val BASE_URL: String = "http://localhost:$PORT"
     }
 
 }

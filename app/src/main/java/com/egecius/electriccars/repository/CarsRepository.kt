@@ -11,10 +11,9 @@ class CarsRepository(
 ) {
 
     fun getCars(): Single<List<Car>> {
-        return Single.fromCallable { carDao.loadAllCars() }
-//        return carsRetrofitService.cars()
-//            .doOnSuccess { cars -> storeCarsInDatabase(cars) }
-//            .flatMap { returnInternetOrDbData(it) }
+        return carsRetrofitService.cars()
+            .doOnSuccess { cars -> storeCarsInDatabase(cars) }
+            .flatMap { returnInternetOrDbData(it) }
     }
 
     private fun returnInternetOrDbData(dataInternet: List<Car>): Single<List<Car>> {
@@ -28,7 +27,6 @@ class CarsRepository(
 
     private fun storeCarsInDatabase(cars: List<Car>) {
         for (car in cars) {
-//            Log.v("Eg:CarsRepository:27", "storeCarsInDatabase inserting: ${car.name}")
             carDao.insertCar(car)
         }
     }
