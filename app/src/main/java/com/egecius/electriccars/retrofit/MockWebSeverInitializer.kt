@@ -1,5 +1,6 @@
 package com.egecius.electriccars.retrofit
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -29,6 +30,12 @@ class MockWebSeverInitializer {
 
         mockWebServer = MockWebServer()
         mockWebServer.setDispatcher(dispatcher)
+
+        Completable.fromCallable { mockWebServer.start(PORT) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+
     }
 
     private fun getElectricCars(): String {
@@ -40,6 +47,11 @@ class MockWebSeverInitializer {
         return Single.fromCallable { mockWebServer.url("/").toString() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    companion object {
+    	const val PORT = 54034
+        const val BASE_URL = "http://localhost:$PORT"
     }
 
 }
