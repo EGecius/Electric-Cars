@@ -23,7 +23,11 @@ class RetrofitAdapter {
 
 interface CarsRetrofitService {
 
-    @GET("/electric_cars")
+    @GET(ENDPOINT_CARS)
     fun cars(): Single<List<Car>>
+
+    companion object {
+        const val ENDPOINT_CARS = "/electric_cars"
+    }
 
 }
