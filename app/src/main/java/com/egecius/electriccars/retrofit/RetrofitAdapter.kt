@@ -9,11 +9,11 @@ import retrofit2.http.GET
 
 class RetrofitAdapter {
 
-    private val basUrl = MockWebSeverInitializer.BASE_URL
+    private val baseUrl = MockWebSeverInitializer.BASE_URL
 
     fun setupRetrofit(): CarsRetrofitService {
         return Retrofit.Builder()
-            .baseUrl(basUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
