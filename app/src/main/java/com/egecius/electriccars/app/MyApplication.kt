@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.egecius.electriccars.various
+package com.egecius.electriccars.app
 
 import android.annotation.SuppressLint
 import android.app.Application
