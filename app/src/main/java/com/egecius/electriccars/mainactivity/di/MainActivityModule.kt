@@ -3,6 +3,7 @@ package com.egecius.electriccars.mainactivity.di
 import androidx.lifecycle.ViewModelProviders
 import com.egecius.electriccars.mainactivity.MainActivity
 import com.egecius.electriccars.mainactivity.MainActivityPresenter
+import com.egecius.electriccars.repository.CarsLiveData
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.CarsDatabase
@@ -22,7 +23,10 @@ class MainActivityModule(private val mainActivity: MainActivity) {
             carsDatabase.carDao()
         )
 
-        presenter.init(carsRepository)
+        val carsLiveData = CarsLiveData(carsRepository)
+
+        presenter.init(carsLiveData)
+
 
         return presenter
     }

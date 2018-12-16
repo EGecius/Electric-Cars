@@ -4,16 +4,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.egecius.electriccars.repository.CarsLiveData
-import com.egecius.electriccars.repository.CarsRepository
 
 class MainActivityPresenter : ViewModel() {
 
     private lateinit var view : MainActivityView
     private lateinit var carsLiveData : CarsLiveData
-    private lateinit var carsRepository: CarsRepository
 
-    fun init(carsRepository: CarsRepository) {
-        this.carsRepository = carsRepository
+    fun init(carsLiveData: CarsLiveData) {
+        this.carsLiveData = carsLiveData
     }
 
     fun startPresenting(
@@ -21,7 +19,6 @@ class MainActivityPresenter : ViewModel() {
         lifecycleOwner: LifecycleOwner
     ) {
         this.view = view
-        carsLiveData = CarsLiveData(carsRepository)
 
         showCars(lifecycleOwner)
     }
