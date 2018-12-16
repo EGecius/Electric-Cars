@@ -2,16 +2,9 @@
 
 package com.egecius.electriccars.app
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import com.egecius.electriccars.retrofit.MockWebSeverInitializer
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 
-@SuppressLint("Registered")
 class MyApplication : Application() {
 
     private val mockWebSeverInitializer = MockWebSeverInitializer()
@@ -19,20 +12,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         mockWebSeverInitializer.init()
-
-//        printMockWebServerUrl()
     }
-
-    @SuppressLint("CheckResult")
-    private fun printMockWebServerUrl() {
-        getMockServerUrl()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe( Consumer {
-                Log.v("Eg:MyApplication:27", "printMockWebServerUrl url: $it")
-            })
-    }
-
-    fun getMockServerUrl(): Single<String> = mockWebSeverInitializer.getUrl()
 
 }
