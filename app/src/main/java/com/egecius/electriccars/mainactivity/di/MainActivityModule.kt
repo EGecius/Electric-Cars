@@ -14,20 +14,18 @@ import dagger.Provides
 class MainActivityModule(private val mainActivity: MainActivity) {
 
     @Provides
-    fun provideMainActivityPresenter(): MainActivityPresenter {
+    fun provideMainActivityPresenter(carsLiveData: CarsLiveData): MainActivityPresenter {
         val presenter = ViewModelProviders.of(mainActivity).get(MainActivityPresenter::class.java)
-
-        val carsDatabase = CarsDatabase.getInstance(mainActivity)
-        val carsRepository = CarsRepository(
-            RetrofitAdapter().setupRetrofit(),
-            carsDatabase.carDao()
-        )
-
-        val carsLiveData = CarsLiveData(carsRepository)
-
         presenter.init(carsLiveData)
-
-
         return presenter
     }
+
+    @Provides
+    fun provideCarsLiveData(): CarsLiveData {
+        val carsRetrofitService = RetrofitAdapter().setupRetrofit()
+        val carDao = CarsDatabase.getInstance(mainActivity).carDao()
+        val carsRepository = CarsRepository(carsRetrofitService, carDao)
+        return CarsLiveData(carsRepository)
+    }
+
 }
