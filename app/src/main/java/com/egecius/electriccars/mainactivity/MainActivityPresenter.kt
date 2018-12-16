@@ -10,11 +10,15 @@ class MainActivityPresenter : ViewModel() {
 
     private lateinit var view : MainActivityView
     private lateinit var carsLiveData : CarsLiveData
+    private lateinit var carsRepository: CarsRepository
+
+    fun init(carsRepository: CarsRepository) {
+        this.carsRepository = carsRepository
+    }
 
     fun startPresenting(
         view: MainActivityView,
-        lifecycleOwner: LifecycleOwner,
-        carsRepository: CarsRepository
+        lifecycleOwner: LifecycleOwner
     ) {
         this.view = view
         carsLiveData = CarsLiveData(carsRepository)
