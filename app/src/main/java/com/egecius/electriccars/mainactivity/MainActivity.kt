@@ -12,8 +12,6 @@ import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarsDatabase
-import com.egecius.electriccars.various.MyApplication
-import io.reactivex.Completable
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
@@ -27,8 +25,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         injectDependencies()
         initPresenter()
-
-        Log.i("Eg:MainActivity:31", "onCreate presenter " + presenter)
     }
 
     private fun injectDependencies() {
@@ -38,23 +34,12 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun initPresenter() {
-        val myApplication = application as MyApplication
-        myApplication.getMockServerUrl()
-            .flatMapCompletable { startPresenting(it) }
-            .subscribe()
-    }
-
-    private fun startPresenting(mockServerUrl: String): Completable {
-
         val carsDatabase = CarsDatabase.getInstance(this)
         val carsRepository = CarsRepository(
-            RetrofitAdapter(mockServerUrl).setupRetrofit(),
+            RetrofitAdapter().setupRetrofit(),
             carsDatabase.carDao()
         )
-
-        return Completable.fromCallable {
-            presenter.startPresenting(this, this, carsRepository)
-        }
+        presenter.startPresenting(this, this, carsRepository)
     }
 
     override fun showCars(cars: List<Car>) {
@@ -64,7 +49,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
 }
-
 
 interface MainActivityView {
     fun showCars(cars: List<Car>)
