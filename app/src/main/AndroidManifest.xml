@@ -23,9 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".demo.DemoActivity">
-        </activity>
-
     </application>
 
 </manifest>
