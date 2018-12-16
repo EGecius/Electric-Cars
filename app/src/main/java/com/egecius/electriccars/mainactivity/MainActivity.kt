@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.egecius.electriccars.various.MyApplication
 import com.egecius.electriccars.R
+import com.egecius.electriccars.repository.CarsRepository
+import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
+import com.egecius.electriccars.room.CarsDatabase
+import com.egecius.electriccars.various.MyApplication
 import io.reactivex.Completable
 
 class MainActivity : AppCompatActivity(), MainActivityView {
@@ -29,8 +32,15 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun startPresenting(mockServerUrl: String): Completable {
+
+        val carsDatabase = CarsDatabase.getInstance(this)
+        val carsRepository = CarsRepository(
+            RetrofitAdapter(mockServerUrl).setupRetrofit(),
+            carsDatabase.carDao()
+        )
+
         return Completable.fromCallable {
-            presenter.startPresenting(this, this, mockServerUrl, this)
+            presenter.startPresenting(this, this, carsRepository)
         }
     }
 
