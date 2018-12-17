@@ -74,6 +74,6 @@ dependencies {
 
     /* Testing */
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:${mockito_version}"
     testImplementation "org.assertj:assertj-core:${assertj_version}"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
 }
