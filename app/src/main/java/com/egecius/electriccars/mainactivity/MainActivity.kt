@@ -2,6 +2,7 @@ package com.egecius.electriccars.mainactivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.adapter = CarRecyclerViewAdapter(cars)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recyclerView.doOnPreDraw {  }
     }
 
 }
