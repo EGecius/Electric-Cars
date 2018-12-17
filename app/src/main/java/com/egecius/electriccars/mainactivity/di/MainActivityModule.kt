@@ -23,7 +23,7 @@ class MainActivityModule(private val mainActivity: MainActivity) {
     @Provides
     fun provideCarsLiveData(): CarsLiveData {
         val carsRetrofitService = RetrofitAdapter().setupRetrofit()
-        val carDao = CarsDatabase.getInstance(mainActivity)!!.carDao()
+        val carDao = CarsDatabase.getInstance(mainActivity).carDao()
         val carsRepository = CarsRepository(carsRetrofitService, carDao)
         return CarsLiveData(carsRepository)
     }

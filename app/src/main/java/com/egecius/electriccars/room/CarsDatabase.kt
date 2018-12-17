@@ -16,13 +16,17 @@ abstract class CarsDatabase : RoomDatabase() {
         private var INSTANCE: CarsDatabase? = null
 
         @Synchronized
-        fun getInstance(context: Context): CarsDatabase? {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context, CarsDatabase::class.java, "Sample.db")
-                    .build()
-            }
+        fun getInstance(context: Context): CarsDatabase {
 
-            return INSTANCE
+            val snapshot = INSTANCE
+
+            return if (snapshot != null) {
+                snapshot
+            } else {
+                val newInstance = Room.databaseBuilder(context, CarsDatabase::class.java, "Sample.db").build()
+                INSTANCE = newInstance
+                newInstance
+            }
         }
     }
 
