@@ -45,6 +45,10 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.0.0'
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    /* Room (SQLite)*/
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
 
     /* RxJava */
     implementation "io.reactivex.rxjava2:rxjava:${rxJava_version}"
@@ -52,21 +56,16 @@ dependencies {
         exclude module: 'rxjava'
     }
 
-    /* Room (SQLite)*/
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
-
     /* Retrofit & OkHttp */
-    implementation 'com.squareup.okhttp3:mockwebserver:3.12.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+    implementation 'com.squareup.okhttp3:mockwebserver:3.12.0'
 
     // Dagger 2
+    implementation "com.google.dagger:dagger:${daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
-    implementation "com.google.dagger:dagger:${daggerVersion}"
 
     /* Other */
     implementation 'com.squareup.moshi:moshi:1.8.0'
@@ -78,5 +77,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:${mockito_version}"
     testImplementation "org.assertj:assertj-core:${assertj_version}"
-
 }
