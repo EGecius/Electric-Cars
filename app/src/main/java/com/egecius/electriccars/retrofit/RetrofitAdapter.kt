@@ -10,7 +10,7 @@ import retrofit2.http.GET
 class RetrofitAdapter {
 
     private val mockWebServerBaseUrl = MockWebSeverInitializer.BASE_URL
-    private val onlineBaseUrl = "https://raw.githubusercontent.com/EGecius/Electric-Cars/master/app/src/main/resources/"
+    private val onlineBaseUrl = "https://raw.githubusercontent.com/EGecius/json/master/"
 
     fun setupRetrofit(): CarsRetrofitService {
         return Retrofit.Builder()
