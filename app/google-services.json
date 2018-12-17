@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "484892801893",
+    "firebase_url": "https://electriccars-74611.firebaseio.com",
+    "project_id": "electriccars-74611",
+    "storage_bucket": "electriccars-74611.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484892801893:android:2b51a14be8646f9b",
+        "android_client_info": {
+          "package_name": "com.egecius.electriccars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484892801893-70ghldemn8pf5ee8rk655fk7k8mgldn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-8pNBtm5qzZ21PjjjaXa2819xqPZMzhA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
