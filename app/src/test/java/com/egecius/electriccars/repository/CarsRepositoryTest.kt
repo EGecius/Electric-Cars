@@ -10,7 +10,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.BDDMockito.given
-import org.mockito.Mockito.*
+import org.mockito.Mock
+import org.mockito.Mockito.never
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner.Silent::class)
@@ -18,8 +20,10 @@ class CarsRepositoryTest {
 
     private lateinit var mSut: CarsRepository
 
-    private val carsRetrofitService: CarsRetrofitService = mock(CarsRetrofitService::class.java)
-    private val carDao: CarDao = mock(CarDao::class.java)
+    @Mock
+    lateinit var carsRetrofitService: CarsRetrofitService
+    @Mock
+    lateinit var carDao: CarDao
 
     private val carInternet = Car("name internet", "img internet")
     private val dataInternet: List<Car> = listOf(carInternet)
