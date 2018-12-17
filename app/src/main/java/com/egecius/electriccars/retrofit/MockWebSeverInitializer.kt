@@ -1,7 +1,6 @@
 package com.egecius.electriccars.retrofit
 
 import io.reactivex.Completable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.mockwebserver.Dispatcher
@@ -41,12 +40,6 @@ class MockWebSeverInitializer {
     private fun getElectricCars(): String {
         val inputStream = javaClass.getResourceAsStream("/" + "electric_cars.json")
         return Scanner(inputStream).useDelimiter("\\A").next()
-    }
-
-    fun getUrl(): Single<String> {
-        return Single.fromCallable { mockWebServer.url("/").toString() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
     companion object {
