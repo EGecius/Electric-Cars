@@ -9,11 +9,12 @@ import retrofit2.http.GET
 
 class RetrofitAdapter {
 
-    private val baseUrl = MockWebSeverInitializer.BASE_URL
+    private val mockWebServerBaseUrl = MockWebSeverInitializer.BASE_URL
+    private val onlineBaseUrl = "https://raw.githubusercontent.com/EGecius/Electric-Cars/master/app/src/main/resources/"
 
     fun setupRetrofit(): CarsRetrofitService {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(onlineBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -27,7 +28,7 @@ interface CarsRetrofitService {
     fun cars(): Single<List<Car>>
 
     companion object {
-        const val ENDPOINT_CARS = "/electric_cars"
+        const val ENDPOINT_CARS = "electric_cars.json"
     }
 
 }
