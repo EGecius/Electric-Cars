@@ -12,7 +12,7 @@ import com.egecius.electriccars.R
 import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
 
-class PagedLIstActivity : AppCompatActivity() {
+class PagedListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

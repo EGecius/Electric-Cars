@@ -19,7 +19,7 @@
         <activity android:name=".mainactivity.MainActivity">
         </activity>
 
-        <activity android:name=".paging.PagedLIstActivity">
+        <activity android:name=".paging.PagedListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
