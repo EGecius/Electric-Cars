@@ -1,7 +1,6 @@
 package com.egecius.electriccars.paging
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -30,7 +29,6 @@ class PagedLIstActivity : AppCompatActivity() {
 
 
         getCarsLiveData().observe(this, Observer { pagedList ->
-            Log.i("Eg:PagedLIstActivity:30", "setupUi pagedList $pagedList")
             adapter.submitList(pagedList)
         })
     }
@@ -42,8 +40,8 @@ class PagedLIstActivity : AppCompatActivity() {
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(10)
-            .setPageSize(20).build()
+            .setInitialLoadSizeHint(5)
+            .setPageSize(5).build()
 
         return LivePagedListBuilder(myDataSourceFactory, config).build()
     }

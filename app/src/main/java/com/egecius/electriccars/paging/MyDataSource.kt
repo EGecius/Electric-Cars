@@ -33,7 +33,7 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
         carsSingle.subscribe({ cars ->
             callback.onResult(cars, params.key + 1)
 
-            Log.i("Eg:MyDataSource:15", "loadInitial cars $cars")
+            Log.d("Eg:MyDataSource:15", "loadAfter cars $cars")
         },
             { throwable ->
                 Log.w("Eg:MyDataSource:17", "loadInitial throwable $throwable")
