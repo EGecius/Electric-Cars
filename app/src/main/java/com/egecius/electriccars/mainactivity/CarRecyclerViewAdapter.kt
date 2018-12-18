@@ -28,7 +28,7 @@ class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecycl
         return carList.size
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.image)
     }
