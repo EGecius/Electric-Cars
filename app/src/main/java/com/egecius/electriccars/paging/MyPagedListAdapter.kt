@@ -9,7 +9,7 @@ import com.egecius.electriccars.mainactivity.CarRecyclerViewAdapter
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
-class MyPagedListAdapter private constructor() :
+class MyPagedListAdapter constructor() :
     PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CarRecyclerViewAdapter.MyViewHolder {
