@@ -61,7 +61,7 @@ class CarsRepositoryTest {
     }
 
     private fun givenInternetDataAvailable() {
-        given(carsRetrofitService.cars()).willReturn(Single.just(dataInternet))
+        given(carsRetrofitService.getCarsFull()).willReturn(Single.just(dataInternet))
     }
 
     @Test
@@ -79,7 +79,7 @@ class CarsRepositoryTest {
     }
 
     private fun givenInternetDataEmpty() {
-        given(carsRetrofitService.cars()).willReturn(Single.just(emptyList()))
+        given(carsRetrofitService.getCarsFull()).willReturn(Single.just(emptyList()))
     }
 
     @Test

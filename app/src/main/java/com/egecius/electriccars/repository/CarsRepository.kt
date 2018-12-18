@@ -11,7 +11,7 @@ class CarsRepository(
 ) {
 
     fun getCars(): Single<List<Car>> {
-        return carsRetrofitService.cars()
+        return carsRetrofitService.getCarsFull()
             .doOnSuccess { cars -> storeCarsInDatabase(cars) }
             .flatMap { returnInternetOrDbData(it) }
     }
