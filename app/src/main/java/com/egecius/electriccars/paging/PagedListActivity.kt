@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +15,13 @@ import com.egecius.electriccars.room.Car
 
 class PagedListActivity : AppCompatActivity() {
 
+    lateinit var presenter: PagedListActivityPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        presenter = ViewModelProviders.of(this).get(PagedListActivityPresenter::class.java)
 
         setupUi()
     }
