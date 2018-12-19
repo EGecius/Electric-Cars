@@ -2,17 +2,20 @@ package com.egecius.electriccars.paging
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
+import com.egecius.electriccars.paging.di.DaggerPagedListActivityComponent
+import com.egecius.electriccars.paging.di.PagedListActivityModule
 import com.egecius.electriccars.room.Car
-
+import javax.inject.Inject
 class PagedListActivity : AppCompatActivity(), PagedListActivityView {
 
-    private lateinit var presenter: PagedListActivityPresenter
     private lateinit var adapter: MyPagedListAdapter
+
+    @Inject
+    lateinit var presenter: PagedListActivityPresenter
 
     override fun showCars(cars: PagedList<Car>?) {
         adapter.submitList(cars)
@@ -22,9 +25,15 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUi()
+        injectDependencies()
 
-        presenter = ViewModelProviders.of(this).get(PagedListActivityPresenter::class.java)
         presenter.startPresenting(this, this)
+    }
+
+    private fun injectDependencies() {
+        DaggerPagedListActivityComponent.builder()
+            .pagedListActivityModule(PagedListActivityModule((this)))
+            .build().injectInto(this)
     }
 
     private fun setupUi() {
