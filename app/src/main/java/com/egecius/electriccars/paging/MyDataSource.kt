@@ -24,10 +24,13 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
     @SuppressLint("CheckResult")
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
 
-        val carsSingle: Single<List<Car>> = if (params.key.toInt() == 1) {
+        val key = params.key.toInt()
+        val carsSingle: Single<List<Car>> = if (key == 1) {
             carsRetrofitService.getCars1()
-        } else {
+        } else if (key == 2) {
             carsRetrofitService.getCars2()
+        } else {
+            Single.just(emptyList())
         }
 
         carsSingle.subscribe({ cars ->
