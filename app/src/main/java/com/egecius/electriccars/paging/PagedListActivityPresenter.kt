@@ -9,6 +9,7 @@ import com.egecius.electriccars.room.Car
 
 class PagedListActivityPresenter : ViewModel() {
 
+    private lateinit var view: PagedListActivityView
     private lateinit var carsLiveData: LiveData<PagedList<Car>>
 
     fun init(carsLiveData: LiveData<PagedList<Car>>) {
@@ -16,9 +17,15 @@ class PagedListActivityPresenter : ViewModel() {
     }
 
     fun startPresenting(
-        lifecycleOwner: LifecycleOwner,
-        view: PagedListActivityView
+        view: PagedListActivityView,
+        lifecycleOwner: LifecycleOwner
     ) {
+        this.view = view
+
+        showCars(lifecycleOwner)
+    }
+
+    private fun showCars(lifecycleOwner: LifecycleOwner) {
         carsLiveData.observe(lifecycleOwner, Observer { cars ->
             view.showCars(cars)
         })
