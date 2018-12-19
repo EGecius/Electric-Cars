@@ -1,7 +1,6 @@
 package com.egecius.electriccars.paging
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.egecius.electriccars.retrofit.CarsRetrofitService
 import com.egecius.electriccars.room.Car
@@ -10,13 +9,13 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
 
     @SuppressLint("CheckResult")
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Car>) {
-
         val cars = carsRetrofitService.getCars0().execute().body()
         cars?.let { callback.onResult(it, 0, 1) }
     }
 
     @SuppressLint("CheckResult")
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
+    	// append your list
 
         val key = params.key.toInt()
         val cars: List<Car>? = when (key) {
@@ -29,7 +28,7 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
-        Log.v("Eg:MyDataSource:28", "loadBefore")
+        // prepend your list - not implemented
     }
 
 }
