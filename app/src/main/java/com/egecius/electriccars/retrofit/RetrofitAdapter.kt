@@ -4,6 +4,7 @@ import com.egecius.electriccars.room.Car
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -37,13 +38,14 @@ interface CarsRetrofitService {
     fun getCarsFull(): Single<List<Car>>
 
     @GET(ENDPOINT_CARS_0)
-    fun getCars0(): Single<List<Car>>
+    fun getCars0(): Call<List<Car>>
 
     @GET(ENDPOINT_CARS_1)
-    fun getCars1(): Single<List<Car>>
+    fun getCars1(): Call<List<Car>>
 
     @GET(ENDPOINT_CARS_2)
-    fun getCars2(): Single<List<Car>>
+    fun getCars2(): Call<List<Car>>
+
 
     companion object {
         const val ENDPOINT_CARS_FULL = "electric_cars.json"

@@ -5,40 +5,27 @@ import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.egecius.electriccars.retrofit.CarsRetrofitService
 import com.egecius.electriccars.room.Car
-import io.reactivex.Single
 
 class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageKeyedDataSource<Long, Car>() {
 
     @SuppressLint("CheckResult")
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Car>) {
-        carsRetrofitService.getCars0().subscribe({ cars ->
-            callback.onResult(cars, 0, 1)
 
-            Log.i("Eg:MyDataSource:15", "loadInitial cars $cars")
-        },
-            { throwable ->
-                Log.w("Eg:MyDataSource:17", "loadInitial throwable $throwable")
-            })
+        val cars = carsRetrofitService.getCars0().execute().body()
+        cars?.let { callback.onResult(it, 0, 1) }
     }
 
     @SuppressLint("CheckResult")
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
 
         val key = params.key.toInt()
-        val carsSingle: Single<List<Car>> = when (key) {
-            1 -> carsRetrofitService.getCars1()
-            2 -> carsRetrofitService.getCars2()
-            else -> Single.just(emptyList())
+        val cars: List<Car>? = when (key) {
+            1 -> carsRetrofitService.getCars1().execute().body()
+            2 -> carsRetrofitService.getCars2().execute().body()
+            else -> emptyList()
         }
 
-        carsSingle.subscribe({ cars ->
-            callback.onResult(cars, params.key + 1)
-
-            Log.d("Eg:MyDataSource:15", "loadAfter cars $cars")
-        },
-            { throwable ->
-                Log.w("Eg:MyDataSource:17", "loadInitial throwable $throwable")
-            })
+        cars?.let { callback.onResult(it, params.key + 1) }
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
