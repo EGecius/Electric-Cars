@@ -10,6 +10,7 @@ import com.egecius.electriccars.paging.di.DaggerPagedListActivityComponent
 import com.egecius.electriccars.paging.di.PagedListActivityModule
 import com.egecius.electriccars.room.Car
 import javax.inject.Inject
+
 class PagedListActivity : AppCompatActivity(), PagedListActivityView {
 
     private lateinit var adapter: MyPagedListAdapter
