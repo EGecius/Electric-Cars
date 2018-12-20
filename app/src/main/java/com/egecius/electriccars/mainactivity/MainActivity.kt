@@ -1,8 +1,6 @@
 package com.egecius.electriccars.mainactivity
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,15 +32,16 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun showCars(cars: List<Car>) {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.adapter = CarRecyclerViewAdapter(cars, OnClickListener {
-            showDetailScreen()
+        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : CarRecyclerViewAdapterOnClickListener{
+            override fun onClick(car: Car) {
+                showDetailScreen(car)
+            }
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun showDetailScreen() {
-        val intent = Intent(this, CarDetailActivity::class.java)
-        startActivity(intent)
+    private fun showDetailScreen(car: Car) {
+        CarDetailActivity.start(this, car)
     }
 
 }
