@@ -9,8 +9,7 @@ import com.egecius.electriccars.mainactivity.CarRecyclerViewAdapter
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
-class MyPagedListAdapter constructor() :
-    PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class MyPagedListAdapter : PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CarRecyclerViewAdapter.MyViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.car_list_item, viewGroup, false)
