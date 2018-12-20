@@ -3,10 +3,10 @@ package com.egecius.electriccars.detail
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.egecius.electriccars.R
+import com.egecius.electriccars.databinding.ActivityCarDetailBinding
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
@@ -14,19 +14,17 @@ class CarDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_car_detail)
 
-        val car  = intent.extras[KEY_CAR] as Car
-
-        setUi(car)
+        setUi()
     }
 
-    private fun setUi(car: Car) {
-        findViewById<TextView>(R.id.title).text = car.name
-        val imageView = findViewById<ImageView>(R.id.image)
-        Picasso.get().load(car.img).into(imageView)
+    private fun setUi() {
+        val car  = intent.extras[KEY_CAR] as Car
+        val binding: ActivityCarDetailBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_car_detail)
 
-        // TODO: 20/12/2018 set data using data binding
+        binding.car = car
+        Picasso.get().load(car.img).into(binding.image)
     }
 
     companion object {
