@@ -11,7 +11,10 @@ import com.egecius.electriccars.R
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
-class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {
+class CarRecyclerViewAdapter(
+    private val carList: List<Car>,
+    private val onClickListener: View.OnClickListener
+) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.car_list_item, viewGroup, false)
@@ -19,6 +22,9 @@ class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecycl
     }
 
     override fun onBindViewHolder(myViewHolder: MyViewHolder, i: Int) {
+
+        myViewHolder.cardView.setOnClickListener(onClickListener)
+
         myViewHolder.title.text = carList[i].name
         val imgUrl = carList[i].img
         Picasso.get().load(imgUrl).into(myViewHolder.image)
@@ -29,6 +35,7 @@ class CarRecyclerViewAdapter(private val carList: List<Car>) : Adapter<CarRecycl
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var cardView: View = itemView.findViewById(R.id.card_view)
         var title: TextView = itemView.findViewById(R.id.title)
         var image: ImageView = itemView.findViewById(R.id.image)
     }
