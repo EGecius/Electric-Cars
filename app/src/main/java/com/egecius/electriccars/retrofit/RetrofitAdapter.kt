@@ -14,7 +14,6 @@ import retrofit2.http.Query
 class RetrofitAdapter {
 
     private val mockWebServerBaseUrl = MockWebSeverInitializer.BASE_URL
-    private val baseUrlGithub = "https://raw.githubusercontent.com/EGecius/json/master/"
     private val baseUrlHeroku = "https://mighty-spire-24044.herokuapp.com/"
 
     fun setupRetrofit(): CarsRetrofitService {
@@ -46,7 +45,7 @@ interface CarsRetrofitService {
     fun getCarsFull(): Single<List<Car>>
 
     companion object {
-        const val ENDPOINT_CARS_FULL = "electric_cars.json"
+        const val ENDPOINT_CARS_FULL = "electric_full"
     }
 
 }
