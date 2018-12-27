@@ -45,21 +45,8 @@ interface CarsRetrofitService {
     @GET(ENDPOINT_CARS_FULL)
     fun getCarsFull(): Single<List<Car>>
 
-    @GET(ENDPOINT_CARS_0)
-    fun getCars0(): Call<List<Car>>
-
-    @GET(ENDPOINT_CARS_1)
-    fun getCars1(): Call<List<Car>>
-
-    @GET(ENDPOINT_CARS_2)
-    fun getCars2(): Call<List<Car>>
-
-
     companion object {
         const val ENDPOINT_CARS_FULL = "electric_cars.json"
-        const val ENDPOINT_CARS_0 = "electric_cars_0.json"
-        const val ENDPOINT_CARS_1 = "electric_cars_1.json"
-        const val ENDPOINT_CARS_2 = "electric_cars_2.json"
     }
 
 }
