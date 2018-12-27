@@ -39,8 +39,6 @@ interface CarsRetrofitService {
     @GET("electric")
     fun getCarsByPages(@Query("page") page: Int): Call<List<Car>>
 
-    // TODO: 27/12/2018 move  getCarsFull() to a separate interface to avoid crashes
-
     @GET(ENDPOINT_CARS_FULL)
     fun getCarsFull(): Single<List<Car>>
 
