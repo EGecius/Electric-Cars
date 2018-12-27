@@ -9,7 +9,7 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
 
     @SuppressLint("CheckResult")
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Car>) {
-        val cars = carsRetrofitService.getCars0().execute().body()
+        val cars = carsRetrofitService.getCarsByPages(0).execute().body()
         cars?.let { callback.onResult(it, 0, 1) }
     }
 
@@ -17,14 +17,9 @@ class MyDataSource(private val carsRetrofitService: CarsRetrofitService) : PageK
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
     	// append your list
 
-        val key = params.key.toInt()
-        val cars: List<Car>? = when (key) {
-            1 -> carsRetrofitService.getCars1().execute().body()
-            2 -> carsRetrofitService.getCars2().execute().body()
-            else -> emptyList()
-        }
-
-        cars?.let { callback.onResult(it, params.key + 1) }
+        val page = params.key.toInt()
+        val result = carsRetrofitService.getCarsByPages(page).execute().body()
+        result?.let { callback.onResult(it, params.key + 1) }
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
