@@ -9,15 +9,17 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 class RetrofitAdapter {
 
     private val mockWebServerBaseUrl = MockWebSeverInitializer.BASE_URL
-    private val onlineBaseUrl = "https://raw.githubusercontent.com/EGecius/json/master/"
+    private val baseUrlGithub = "https://raw.githubusercontent.com/EGecius/json/master/"
+    private val baseUrlHeroku = "https://mighty-spire-24044.herokuapp.com/"
 
     fun setupRetrofit(): CarsRetrofitService {
         return Retrofit.Builder()
-            .baseUrl(onlineBaseUrl)
+            .baseUrl(baseUrlHeroku)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(createLoggingOkHttpClient())
@@ -33,6 +35,10 @@ class RetrofitAdapter {
 }
 
 interface CarsRetrofitService {
+
+    // only works with Heroku base url
+    @GET("electric/{page}")
+    fun getCarsByPages(@Path("page") page: Int): Single<List<Car>>
 
     @GET(ENDPOINT_CARS_FULL)
     fun getCarsFull(): Single<List<Car>>
