@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 class RetrofitAdapter {
 
@@ -37,8 +37,10 @@ class RetrofitAdapter {
 interface CarsRetrofitService {
 
     // only works with Heroku base url
-    @GET("electric/{page}")
-    fun getCarsByPages(@Path("page") page: Int): Single<List<Car>>
+    @GET("electric")
+    fun getCarsByPages(@Query("page") page: Int): Call<List<Car>>
+
+    // TODO: 27/12/2018 move  getCarsFull() to a separate interface to avoid crashes
 
     @GET(ENDPOINT_CARS_FULL)
     fun getCarsFull(): Single<List<Car>>
