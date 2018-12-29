@@ -1,6 +1,8 @@
 package com.egecius.electriccars.mainactivity
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +15,23 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
 
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
+
     @Inject
-    lateinit var presenter : MainActivityPresenter
+    lateinit var presenter: MainActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        setupUi()
         injectDependencies()
         presenter.startPresenting(this, this)
+    }
+
+    private fun setupUi() {
+        progressBar = findViewById(R.id.progress_bar)
+        recyclerView = findViewById(R.id.recycler_view)
     }
 
     private fun injectDependencies() {
@@ -31,13 +41,15 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun showCars(cars: List<Car>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : CarRecyclerViewAdapterOnClickListener{
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : CarRecyclerViewAdapterOnClickListener {
             override fun onClick(car: Car) {
                 showDetailScreen(car)
             }
         })
-        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun showDetailScreen(car: Car) {
