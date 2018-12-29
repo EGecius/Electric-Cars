@@ -1,6 +1,8 @@
 package com.egecius.electriccars.paging
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +16,16 @@ import javax.inject.Inject
 class PagedListActivity : AppCompatActivity(), PagedListActivityView {
 
     private lateinit var adapter: MyPagedListAdapter
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
 
     @Inject
     lateinit var presenter: PagedListActivityPresenter
 
     override fun showCars(cars: PagedList<Car>?) {
         adapter.submitList(cars)
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +44,8 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
     }
 
     private fun setupUi() {
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        progressBar = findViewById(R.id.progress_bar)
+        recyclerView = findViewById(R.id.recycler_view)
         adapter = MyPagedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
