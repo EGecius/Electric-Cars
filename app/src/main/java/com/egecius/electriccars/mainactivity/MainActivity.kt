@@ -2,8 +2,8 @@ package com.egecius.electriccars.mainactivity
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +12,15 @@ import com.egecius.electriccars.detail.CarDetailActivity
 import com.egecius.electriccars.mainactivity.di.DaggerMainActivityComponent
 import com.egecius.electriccars.mainactivity.di.MainActivityModule
 import com.egecius.electriccars.room.Car
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
+    private lateinit var parentLayout: ViewGroup
+
     @Inject
     lateinit var presenter: MainActivityPresenter
 
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun setupUi() {
+        parentLayout = findViewById(R.id.parent_layout)
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
     }
@@ -41,8 +45,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun showCars(cars: List<Car>) {
-        progressBar.visibility = View.GONE
-        recyclerView.visibility = View.VISIBLE
+        showRecyclerViewOnly()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CarRecyclerViewAdapter(cars, object : CarRecyclerViewAdapterOnClickListener {
@@ -52,12 +55,18 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         })
     }
 
+    private fun showRecyclerViewOnly() {
+        progressBar.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+    }
+
     private fun showDetailScreen(car: Car) {
         CarDetailActivity.start(this, car)
     }
 
     override fun showLoadingError() {
-        Toast.makeText(this, "loading error", Toast.LENGTH_SHORT).show()
+        Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE).show()
+        showRecyclerViewOnly()
     }
 
 }
