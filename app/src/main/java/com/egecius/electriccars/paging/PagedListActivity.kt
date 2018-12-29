@@ -22,7 +22,7 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
     @Inject
     lateinit var presenter: PagedListActivityPresenter
 
-    override fun showCars(cars: PagedList<Car>?) {
+    override fun showCars(cars: PagedList<Car>) {
         adapter.submitList(cars)
         progressBar.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
@@ -54,6 +54,6 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
 
 interface PagedListActivityView {
 
-    fun showCars(cars: PagedList<Car>?)
+    fun showCars(cars: PagedList<Car>)
 
 }
