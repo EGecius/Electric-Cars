@@ -3,6 +3,7 @@ package com.egecius.electriccars.mainactivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +15,9 @@ import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
-    override fun showLoadingError() {
-        // TODO: 29/12/2018
-    }
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-
     @Inject
     lateinit var presenter: MainActivityPresenter
 
@@ -57,6 +54,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     private fun showDetailScreen(car: Car) {
         CarDetailActivity.start(this, car)
+    }
+
+    override fun showLoadingError() {
+        Toast.makeText(this, "loading error", Toast.LENGTH_SHORT).show()
     }
 
 }
