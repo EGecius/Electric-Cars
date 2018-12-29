@@ -30,7 +30,7 @@ class MainActivityPresenter : ViewModel() {
             if (data != null) {
                 view.showCars(data)
             } else {
-                // TODO: 29/12/2018 show error
+                view.showLoadingError()
             }
         })
     }

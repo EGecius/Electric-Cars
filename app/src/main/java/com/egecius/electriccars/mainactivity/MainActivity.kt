@@ -14,6 +14,9 @@ import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
+    override fun showLoadingError() {
+        // TODO: 29/12/2018
+    }
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
@@ -60,4 +63,5 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
 interface MainActivityView {
     fun showCars(cars: List<Car>)
+    fun showLoadingError()
 }

@@ -6,7 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<Result<List<Car>>>() {
+open class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<Result<List<Car>>>() {
 
     private var disposable: Disposable? = null
 
