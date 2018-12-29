@@ -6,7 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<List<Car>>() {
+class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<Result<List<Car>>>() {
 
     private var disposable: Disposable? = null
 
@@ -14,8 +14,8 @@ class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<List<C
         disposable = carsRepository.getCars()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { cars ->
-                value = cars
+            .subscribe { cars, throwable ->
+                value = Result(cars, throwable)
             }
     }
 

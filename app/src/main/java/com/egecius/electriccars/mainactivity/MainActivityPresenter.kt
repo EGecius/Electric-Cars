@@ -25,7 +25,13 @@ class MainActivityPresenter : ViewModel() {
 
     private fun showCars(lifecycleOwner: LifecycleOwner) {
         carsLiveData.observe(lifecycleOwner, Observer {
-            view.showCars(it)
+
+            val data = it.data
+            if (data != null) {
+                view.showCars(data)
+            } else {
+                // TODO: 29/12/2018 show error
+            }
         })
     }
 
