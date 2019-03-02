@@ -19,15 +19,16 @@
 
         <activity android:name=".mainactivity.MainActivity">
 
-        </activity>
-
-        <activity android:name=".paging.CarListActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".paging.CarListActivity">
+
 
         </activity>
 
