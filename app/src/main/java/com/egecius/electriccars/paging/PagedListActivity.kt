@@ -37,18 +37,18 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
         presenter.startPresenting(this, this)
     }
 
-    private fun injectDependencies() {
-        DaggerPagedListActivityComponent.builder()
-            .pagedListActivityModule(PagedListActivityModule((this)))
-            .build().injectInto(this)
-    }
-
     private fun setupUi() {
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
         adapter = MyPagedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun injectDependencies() {
+        DaggerPagedListActivityComponent.builder()
+            .pagedListActivityModule(PagedListActivityModule((this)))
+            .build().injectInto(this)
     }
 }
 
