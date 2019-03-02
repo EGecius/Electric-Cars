@@ -6,10 +6,11 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.egecius.electriccars.R
 import com.egecius.electriccars.mainactivity.CarRecyclerViewAdapter
+import com.egecius.electriccars.mainactivity.OnCarClickListener
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
-class CarPagedListAdapter : PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class CarPagedListAdapter(private val onCarClickListener: OnCarClickListener) : PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): CarRecyclerViewAdapter.MyViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.car_list_item, viewGroup, false)
@@ -18,6 +19,11 @@ class CarPagedListAdapter : PagedListAdapter<Car, CarRecyclerViewAdapter.MyViewH
 
     override fun onBindViewHolder(holder: CarRecyclerViewAdapter.MyViewHolder, position: Int) {
         val item: Car? = getItem(position)
+        holder.cardView.setOnClickListener {
+            if (item != null) {
+                onCarClickListener.onClick(item)
+            }
+        }
         holder.title.text = item?.name
         val imgUrl = item?.img
         Picasso.get().load(imgUrl).into(holder.image)

@@ -8,6 +8,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
+import com.egecius.electriccars.detail.CarDetailActivity
+import com.egecius.electriccars.mainactivity.OnCarClickListener
 import com.egecius.electriccars.paging.di.CarListModule
 import com.egecius.electriccars.paging.di.DaggerCarListActivityComponent
 import com.egecius.electriccars.room.Car
@@ -40,9 +42,17 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
     private fun setupUi() {
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
-        adapter = CarPagedListAdapter()
+        adapter = CarPagedListAdapter(object : OnCarClickListener {
+            override fun onClick(car: Car) {
+                showDetailScreen(car)
+            }
+        })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun showDetailScreen(car: Car) {
+        CarDetailActivity.start(this, car)
     }
 
     private fun injectDependencies() {
