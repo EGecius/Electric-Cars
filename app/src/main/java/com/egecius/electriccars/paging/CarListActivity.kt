@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class CarListActivity : AppCompatActivity(), CarListPresenter.View {
 
-    private lateinit var adapter: MyPagedListAdapter
+    private lateinit var adapter: CarPagedListAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
 
@@ -40,7 +40,7 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
     private fun setupUi() {
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
-        adapter = MyPagedListAdapter()
+        adapter = CarPagedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
