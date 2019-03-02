@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 
 class CarRecyclerViewAdapter(
     private val carList: List<Car>,
-    private val onClickListenerListener: CarRecyclerViewAdapterOnClickListener
+    private val onCarClickListener: OnCarClickListener
 ) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
@@ -24,7 +24,7 @@ class CarRecyclerViewAdapter(
     override fun onBindViewHolder(myViewHolder: MyViewHolder, i: Int) {
 
         myViewHolder.cardView.setOnClickListener {
-            onClickListenerListener.onClick(carList[i])
+            onCarClickListener.onClick(carList[i])
         }
 
         myViewHolder.title.text = carList[i].name
@@ -43,6 +43,6 @@ class CarRecyclerViewAdapter(
     }
 }
 
-interface CarRecyclerViewAdapterOnClickListener {
+interface OnCarClickListener {
     fun onClick(car: Car)
 }

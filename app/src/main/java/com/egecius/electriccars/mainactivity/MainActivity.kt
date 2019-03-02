@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         showRecyclerViewOnly()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : CarRecyclerViewAdapterOnClickListener {
+        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : OnCarClickListener {
             override fun onClick(car: Car) {
                 showDetailScreen(car)
             }
