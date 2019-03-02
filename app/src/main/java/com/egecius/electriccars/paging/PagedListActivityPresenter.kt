@@ -31,4 +31,10 @@ class PagedListActivityPresenter : ViewModel() {
         })
     }
 
+    interface PagedListActivityView {
+
+        fun showCars(cars: PagedList<Car>)
+
+    }
+
 }

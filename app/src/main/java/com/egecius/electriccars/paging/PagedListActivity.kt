@@ -13,7 +13,7 @@ import com.egecius.electriccars.paging.di.PagedListActivityModule
 import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
-class PagedListActivity : AppCompatActivity(), PagedListActivityView {
+class PagedListActivity : AppCompatActivity(), PagedListActivityPresenter.PagedListActivityView {
 
     private lateinit var adapter: MyPagedListAdapter
     private lateinit var progressBar: ProgressBar
@@ -50,10 +50,4 @@ class PagedListActivity : AppCompatActivity(), PagedListActivityView {
             .pagedListActivityModule(PagedListActivityModule((this)))
             .build().injectInto(this)
     }
-}
-
-interface PagedListActivityView {
-
-    fun showCars(cars: PagedList<Car>)
-
 }
