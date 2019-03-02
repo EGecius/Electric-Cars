@@ -9,7 +9,7 @@ import com.egecius.electriccars.room.Car
 
 class PagedListActivityPresenter : ViewModel() {
 
-    private lateinit var view: PagedListActivityView
+    private lateinit var view: View
     private lateinit var carsLiveData: LiveData<PagedList<Car>>
 
     fun init(carsLiveData: LiveData<PagedList<Car>>) {
@@ -17,7 +17,7 @@ class PagedListActivityPresenter : ViewModel() {
     }
 
     fun startPresenting(
-        view: PagedListActivityView,
+        view: View,
         lifecycleOwner: LifecycleOwner
     ) {
         this.view = view
@@ -31,7 +31,7 @@ class PagedListActivityPresenter : ViewModel() {
         })
     }
 
-    interface PagedListActivityView {
+    interface View {
 
         fun showCars(cars: PagedList<Car>)
 
