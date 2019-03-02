@@ -65,7 +65,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun showLoadingError() {
-        Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE).show()
+        Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE)
+            .setAction("Retry") {
+                presenter.retryFetching(this)
+            }
+            .show()
         showRecyclerViewOnly()
     }
 
