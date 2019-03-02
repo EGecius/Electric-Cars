@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.egecius.electriccars.paging.MyDataSourceFactory
-import com.egecius.electriccars.paging.PagedListActivity
+import com.egecius.electriccars.paging.CarListActivity
 import com.egecius.electriccars.paging.PagedListActivityPresenter
 import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
@@ -16,11 +16,11 @@ import dagger.Provides
 @Component(modules = [PagedListActivityModule::class])
 interface PagedListActivityComponent {
 
-    fun injectInto(pagedListActivity: PagedListActivity)
+    fun injectInto(carListActivity: CarListActivity)
 }
 
 @Module
-class PagedListActivityModule(private val activity: PagedListActivity) {
+class PagedListActivityModule(private val activity: CarListActivity) {
 
     @Provides
     fun providesPresenter(carsLiveData: LiveData<PagedList<Car>>): PagedListActivityPresenter {

@@ -21,7 +21,7 @@
 
         </activity>
 
-        <activity android:name=".paging.PagedListActivity">
+        <activity android:name=".paging.CarListActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
