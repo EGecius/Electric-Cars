@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.egecius.electriccars.paging.CarDataSourceFactory
 import com.egecius.electriccars.paging.CarListActivity
 import com.egecius.electriccars.paging.CarListPresenter
-import com.egecius.electriccars.paging.MyDataSourceFactory
 import com.egecius.electriccars.retrofit.RetrofitAdapter
 import com.egecius.electriccars.room.Car
 import dagger.Component
@@ -33,7 +33,7 @@ class CarListModule(private val activity: CarListActivity) {
     fun providesCarsLiveData(): LiveData<PagedList<Car>> {
 
         val carsRetrofitService = RetrofitAdapter().setupRetrofit()
-        val myDataSourceFactory = MyDataSourceFactory(carsRetrofitService)
+        val myDataSourceFactory = CarDataSourceFactory(carsRetrofitService)
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)

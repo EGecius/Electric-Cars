@@ -1,6 +1,6 @@
 package com.egecius.electriccars.repository
 
-import com.egecius.electriccars.retrofit.CarsRetrofitService
+import com.egecius.electriccars.retrofit.CarRetrofitService
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
 import com.nhaarman.mockitokotlin2.any
@@ -20,7 +20,7 @@ class CarsRepositoryTest {
     private lateinit var mSut: CarsRepository
 
     @Mock
-    lateinit var carsRetrofitService: CarsRetrofitService
+    lateinit var carRetrofitService: CarRetrofitService
     @Mock
     lateinit var carDao: CarDao
 
@@ -33,7 +33,7 @@ class CarsRepositoryTest {
 
     @Before
     fun setUp() {
-        mSut = CarsRepository(carsRetrofitService, carDao)
+        mSut = CarsRepository(carRetrofitService, carDao)
     }
 
     @Test
@@ -61,7 +61,7 @@ class CarsRepositoryTest {
     }
 
     private fun givenInternetDataAvailable() {
-        given(carsRetrofitService.getCarsFull()).willReturn(Single.just(dataInternet))
+        given(carRetrofitService.getCarsFull()).willReturn(Single.just(dataInternet))
     }
 
     @Test
@@ -79,7 +79,7 @@ class CarsRepositoryTest {
     }
 
     private fun givenInternetDataEmpty() {
-        given(carsRetrofitService.getCarsFull()).willReturn(Single.just(emptyList()))
+        given(carRetrofitService.getCarsFull()).willReturn(Single.just(emptyList()))
     }
 
     @Test
