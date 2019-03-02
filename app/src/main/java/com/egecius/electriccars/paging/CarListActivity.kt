@@ -8,8 +8,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
-import com.egecius.electriccars.paging.di.DaggerPagedListActivityComponent
-import com.egecius.electriccars.paging.di.PagedListActivityModule
+import com.egecius.electriccars.paging.di.CarListModule
+import com.egecius.electriccars.paging.di.DaggerCarListActivityComponent
 import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
@@ -46,8 +46,8 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
     }
 
     private fun injectDependencies() {
-        DaggerPagedListActivityComponent.builder()
-            .pagedListActivityModule(PagedListActivityModule((this)))
+        DaggerCarListActivityComponent.builder()
+            .carListModule(CarListModule((this)))
             .build().injectInto(this)
     }
 }
