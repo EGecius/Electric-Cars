@@ -3,6 +3,7 @@ package com.egecius.electriccars.mainactivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CarRecyclerViewAdapter(cars, object : OnCarClickListener {
-            override fun onClick(car: Car) {
-                showDetailScreen(car)
+            override fun onClick(car: Car, imageView: ImageView) {
+                showDetailScreen(car, imageView)
             }
         })
     }
@@ -60,8 +61,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         recyclerView.visibility = View.VISIBLE
     }
 
-    private fun showDetailScreen(car: Car) {
-        CarDetailActivity.start(this, car)
+    private fun showDetailScreen(car: Car, imageView: ImageView) {
+        CarDetailActivity.start(this, car, imageView)
     }
 
     override fun showLoadingError() {

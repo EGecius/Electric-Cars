@@ -2,6 +2,7 @@ package com.egecius.electriccars.paging
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.PagedList
@@ -43,16 +44,16 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
         adapter = CarPagedListAdapter(object : OnCarClickListener {
-            override fun onClick(car: Car) {
-                showDetailScreen(car)
+            override fun onClick(car: Car, imageView: ImageView) {
+                showDetailScreen(car, imageView)
             }
         })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun showDetailScreen(car: Car) {
-        CarDetailActivity.start(this, car)
+    private fun showDetailScreen(car: Car, imageView: ImageView) {
+        CarDetailActivity.start(this, car, imageView)
     }
 
     private fun injectDependencies() {

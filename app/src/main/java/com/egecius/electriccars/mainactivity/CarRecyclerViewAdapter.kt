@@ -24,7 +24,7 @@ class CarRecyclerViewAdapter(
     override fun onBindViewHolder(myViewHolder: MyViewHolder, i: Int) {
 
         myViewHolder.cardView.setOnClickListener {
-            onCarClickListener.onClick(carList[i])
+            onCarClickListener.onClick(carList[i], myViewHolder.image)
         }
 
         myViewHolder.title.text = carList[i].name
@@ -44,5 +44,5 @@ class CarRecyclerViewAdapter(
 }
 
 interface OnCarClickListener {
-    fun onClick(car: Car)
+    fun onClick(car: Car, imageView: ImageView)
 }
