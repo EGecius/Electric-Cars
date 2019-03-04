@@ -35,8 +35,8 @@ class MainActivityPresenter : ViewModel() {
         })
     }
 
-    fun retryFetching(lifecycleOwner: LifecycleOwner) {
-        showCars(lifecycleOwner)
+    fun retryFetching() {
+        carsLiveData.retry()
     }
 
 }

@@ -11,6 +11,10 @@ open class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<R
     private var disposable: Disposable? = null
 
     override fun onActive() {
+        extractValueFromRepository()
+    }
+
+    private fun extractValueFromRepository() {
         disposable = carsRepository.getCars()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -21,5 +25,9 @@ open class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<R
 
     override fun onInactive() {
         disposable?.dispose()
+    }
+
+    fun retry() {
+        extractValueFromRepository()
     }
 }
