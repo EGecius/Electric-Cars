@@ -19,8 +19,15 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), MainActivityView {
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var parentLayout: ViewGroup
+    private lateinit var recyclerView: RecyclerView
+
+    private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
+        override fun onClick(car: Car, imageView: ImageView) {
+            showCarDetailScreen(car, imageView)
+        }
+    })
+
     @Inject
     lateinit var presenter: MainActivityPresenter
 
@@ -36,6 +43,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         parentLayout = findViewById(R.id.parent_layout)
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = carRecyclerViewAdapter
     }
 
     private fun injectDependencies() {
@@ -46,13 +55,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun showCars(cars: List<Car>) {
         showRecyclerViewOnly()
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CarRecyclerViewAdapter(cars, object : OnCarClickListener {
-            override fun onClick(car: Car, imageView: ImageView) {
-                showDetailScreen(car, imageView)
-            }
-        })
+        carRecyclerViewAdapter.setData(cars)
     }
 
     private fun showRecyclerViewOnly() {
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         recyclerView.visibility = View.VISIBLE
     }
 
-    private fun showDetailScreen(car: Car, imageView: ImageView) {
+    private fun showCarDetailScreen(car: Car, imageView: ImageView) {
         CarDetailActivity.start(this, car, imageView)
     }
 

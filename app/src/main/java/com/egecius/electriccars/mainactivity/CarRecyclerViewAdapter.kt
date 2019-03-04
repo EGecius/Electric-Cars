@@ -12,9 +12,10 @@ import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
 class CarRecyclerViewAdapter(
-    private val carList: List<Car>,
     private val onCarClickListener: OnCarClickListener
 ) : Adapter<CarRecyclerViewAdapter.MyViewHolder>() {
+
+    private var carList: List<Car> = emptyList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.car_list_item, viewGroup, false)
@@ -34,6 +35,11 @@ class CarRecyclerViewAdapter(
 
     override fun getItemCount(): Int {
         return carList.size
+    }
+
+    fun setData(cars: List<Car>) {
+        carList = cars
+        notifyDataSetChanged()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
