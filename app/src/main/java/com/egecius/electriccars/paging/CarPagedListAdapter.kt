@@ -21,7 +21,7 @@ class CarPagedListAdapter(private val onCarClickListener: OnCarClickListener) : 
         val item: Car? = getItem(position)
         holder.cardView.setOnClickListener {
             if (item != null) {
-                onCarClickListener.onClick(item, holder.image)
+                onCarClickListener.onClick(item, holder.image, holder.title)
             }
         }
         holder.title.text = item?.name

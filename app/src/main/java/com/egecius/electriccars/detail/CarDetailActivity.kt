@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -38,12 +39,14 @@ class CarDetailActivity : AppCompatActivity() {
     	fun start(
             originActivity: Activity,
             car: Car,
-            imageView: ImageView
+            imageView: ImageView,
+            titleView: TextView
         ) {
             val intent = Intent(originActivity, CarDetailActivity::class.java)
             intent.putExtra(KEY_CAR, car)
             val pairImage = Pair(imageView as View, "car_image")
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(originActivity, pairImage)
+            val pairTitle = Pair(titleView as View, "car_title")
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(originActivity, pairImage, pairTitle)
             originActivity.startActivity(intent, options.toBundle())
         }
     }

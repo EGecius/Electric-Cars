@@ -22,15 +22,15 @@ class CarRecyclerViewAdapter(
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(myViewHolder: MyViewHolder, i: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, i: Int) {
 
-        myViewHolder.cardView.setOnClickListener {
-            onCarClickListener.onClick(carList[i], myViewHolder.image)
+        holder.cardView.setOnClickListener {
+            onCarClickListener.onClick(carList[i], holder.image, holder.title)
         }
 
-        myViewHolder.title.text = carList[i].name
+        holder.title.text = carList[i].name
         val imgUrl = carList[i].img
-        Picasso.get().load(imgUrl).into(myViewHolder.image)
+        Picasso.get().load(imgUrl).into(holder.image)
     }
 
     override fun getItemCount(): Int {
@@ -50,5 +50,5 @@ class CarRecyclerViewAdapter(
 }
 
 interface OnCarClickListener {
-    fun onClick(car: Car, imageView: ImageView)
+    fun onClick(car: Car, imageView: ImageView, titleView: TextView)
 }

@@ -18,10 +18,12 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:padding="8dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:targetApi="lollipop">
 
             <TextView
                     android:id="@+id/title"
+                    android:transitionName="car_title"
                     android:textSize="22sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -34,7 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:src="@drawable/ic_launcher_background"
-                    tools:targetApi="lollipop"
                     tools:ignore="ContentDescription"/>
 
         </LinearLayout>

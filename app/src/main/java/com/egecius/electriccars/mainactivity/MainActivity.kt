@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,13 +24,21 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     private lateinit var recyclerView: RecyclerView
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
-        override fun onClick(car: Car, imageView: ImageView) {
-            showCarDetailScreen(car, imageView)
+        override fun onClick(
+            car: Car,
+            imageView: ImageView,
+            titleView: TextView
+        ) {
+            showCarDetailScreen(car, imageView, titleView)
         }
     })
 
-    private fun showCarDetailScreen(car: Car, imageView: ImageView) {
-        CarDetailActivity.start(this, car, imageView)
+    private fun showCarDetailScreen(
+        car: Car,
+        imageView: ImageView,
+        titleView: TextView
+    ) {
+        CarDetailActivity.start(this, car, imageView, titleView)
     }
 
     @Inject

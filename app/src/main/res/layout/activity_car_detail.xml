@@ -10,15 +10,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:targetApi="lollipop">
 
         <TextView
                 android:id="@+id/title"
-                tools:text="Tesla Model 3"
+                android:transitionName="car_title"
                 android:textSize="24sp"
                 android:text="@{car.name}"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="Tesla Model 3"/>
 
         <ImageView
                 android:id="@+id/image"
@@ -26,7 +28,7 @@
                 tools:src="@drawable/ic_launcher_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:ignore="ContentDescription,UnusedAttribute"/>
+                tools:ignore="ContentDescription"/>
 
     </LinearLayout>
 
