@@ -3,9 +3,11 @@ package com.egecius.electriccars.detail
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.databinding.DataBindingUtil
 import com.egecius.electriccars.R
 import com.egecius.electriccars.databinding.ActivityCarDetailBinding
@@ -40,7 +42,8 @@ class CarDetailActivity : AppCompatActivity() {
         ) {
             val intent = Intent(originActivity, CarDetailActivity::class.java)
             intent.putExtra(KEY_CAR, car)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(originActivity, imageView, "car_image")
+            val pairImage = Pair(imageView as View, "car_image")
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(originActivity, pairImage)
             originActivity.startActivity(intent, options.toBundle())
         }
     }
