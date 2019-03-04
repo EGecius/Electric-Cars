@@ -17,6 +17,8 @@
             android:id="@+id/recycler_view"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:visibility="visible"
+            tools:listitem="@layout/car_list_item"/>
 
 </FrameLayout>
