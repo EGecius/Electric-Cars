@@ -17,11 +17,10 @@ import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityView {
-
     private lateinit var progressBar: ProgressBar
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var parentLayout: ViewGroup
-
     @Inject
     lateinit var presenter: MainActivityPresenter
 
@@ -74,9 +73,15 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         showRecyclerViewOnly()
     }
 
+    override fun showLoadingInProgress() {
+        progressBar.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+    }
+
 }
 
 interface MainActivityView {
     fun showCars(cars: List<Car>)
     fun showLoadingError()
+    fun showLoadingInProgress()
 }

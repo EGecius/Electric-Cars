@@ -36,6 +36,7 @@ class MainActivityPresenter : ViewModel() {
     }
 
     fun retryFetching() {
+        view.showLoadingInProgress()
         carsLiveData.retry()
     }
 
