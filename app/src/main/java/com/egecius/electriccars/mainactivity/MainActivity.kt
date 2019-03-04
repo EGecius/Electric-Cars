@@ -3,9 +3,7 @@ package com.egecius.electriccars.mainactivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,20 +23,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
         override fun onClick(
-            car: Car,
-            imageView: ImageView,
-            titleView: TextView
+            carClick: CarClick
         ) {
-            showCarDetailScreen(car, imageView, titleView)
+            showCarDetailScreen(carClick)
         }
     })
 
-    private fun showCarDetailScreen(
-        car: Car,
-        imageView: ImageView,
-        titleView: TextView
-    ) {
-        CarDetailActivity.start(this, car, imageView, titleView)
+    private fun showCarDetailScreen(carClick: CarClick) {
+        CarDetailActivity.start(this, carClick)
     }
 
     @Inject

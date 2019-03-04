@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.egecius.electriccars.R
+import com.egecius.electriccars.mainactivity.CarClick
 import com.egecius.electriccars.mainactivity.CarRecyclerViewAdapter
 import com.egecius.electriccars.mainactivity.OnCarClickListener
 import com.egecius.electriccars.room.Car
@@ -21,7 +22,7 @@ class CarPagedListAdapter(private val onCarClickListener: OnCarClickListener) : 
         val item: Car? = getItem(position)
         holder.cardView.setOnClickListener {
             if (item != null) {
-                onCarClickListener.onClick(item, holder.image, holder.title)
+                onCarClickListener.onClick(CarClick(item, holder.image, holder.title))
             }
         }
         holder.title.text = item?.name

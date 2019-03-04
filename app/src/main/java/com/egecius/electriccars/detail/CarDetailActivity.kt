@@ -4,14 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.databinding.DataBindingUtil
 import com.egecius.electriccars.R
 import com.egecius.electriccars.databinding.ActivityCarDetailBinding
+import com.egecius.electriccars.mainactivity.CarClick
 import com.egecius.electriccars.room.Car
 import com.squareup.picasso.Picasso
 
@@ -38,14 +37,12 @@ class CarDetailActivity : AppCompatActivity() {
 
     	fun start(
             originActivity: Activity,
-            car: Car,
-            imageView: ImageView,
-            titleView: TextView
+            carClick: CarClick
         ) {
             val intent = Intent(originActivity, CarDetailActivity::class.java)
-            intent.putExtra(KEY_CAR, car)
-            val pairImage = Pair(imageView as View, "car_image")
-            val pairTitle = Pair(titleView as View, "car_title")
+            intent.putExtra(KEY_CAR, carClick.car)
+            val pairImage = Pair(carClick.imageView as View, "car_image")
+            val pairTitle = Pair(carClick.titleView as View, "car_title")
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(originActivity, pairImage, pairTitle)
             originActivity.startActivity(intent, options.toBundle())
         }

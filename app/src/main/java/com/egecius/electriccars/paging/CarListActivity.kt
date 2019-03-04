@@ -2,15 +2,14 @@ package com.egecius.electriccars.paging
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
 import com.egecius.electriccars.detail.CarDetailActivity
+import com.egecius.electriccars.mainactivity.CarClick
 import com.egecius.electriccars.mainactivity.OnCarClickListener
 import com.egecius.electriccars.paging.di.CarListModule
 import com.egecius.electriccars.paging.di.DaggerCarListActivityComponent
@@ -46,23 +45,17 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
         recyclerView = findViewById(R.id.recycler_view)
         adapter = CarPagedListAdapter(object : OnCarClickListener {
             override fun onClick(
-                car: Car,
-                imageView: ImageView,
-                titleView: TextView
+                carClick: CarClick
             ) {
-                showDetailScreen(car, imageView, titleView)
+                showDetailScreen(carClick)
             }
         })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun showDetailScreen(
-        car: Car,
-        imageView: ImageView,
-        titleView: TextView
-    ) {
-        CarDetailActivity.start(this, car, imageView, titleView)
+    private fun showDetailScreen(carClick: CarClick) {
+        CarDetailActivity.start(this, carClick)
     }
 
     private fun injectDependencies() {
