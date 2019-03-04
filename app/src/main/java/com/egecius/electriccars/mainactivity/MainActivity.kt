@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         }
     })
 
+    private fun showCarDetailScreen(car: Car, imageView: ImageView) {
+        CarDetailActivity.start(this, car, imageView)
+    }
+
     @Inject
     lateinit var presenter: MainActivityPresenter
 
@@ -61,10 +65,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     private fun showRecyclerViewOnly() {
         progressBar.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
-    }
-
-    private fun showCarDetailScreen(car: Car, imageView: ImageView) {
-        CarDetailActivity.start(this, car, imageView)
     }
 
     override fun showLoadingError() {
