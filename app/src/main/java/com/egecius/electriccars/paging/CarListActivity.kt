@@ -44,9 +44,7 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
         adapter = CarPagedListAdapter(object : OnCarClickListener {
-            override fun onClick(
-                carClick: CarClick
-            ) {
+            override fun onClick(carClick: CarClick) {
                 showDetailScreen(carClick)
             }
         })

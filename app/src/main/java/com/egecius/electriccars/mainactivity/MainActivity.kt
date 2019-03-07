@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     private lateinit var recyclerView: RecyclerView
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
-        override fun onClick(
-            carClick: CarClick
-        ) {
+        override fun onClick(carClick: CarClick) {
             showCarDetailScreen(carClick)
         }
     })

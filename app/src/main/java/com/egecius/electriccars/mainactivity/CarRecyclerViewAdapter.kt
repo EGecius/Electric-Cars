@@ -50,7 +50,7 @@ class CarRecyclerViewAdapter(
 }
 
 interface OnCarClickListener {
-    fun onClick(car: CarClick)
+    fun onClick(carClick: CarClick)
 }
 
 class CarClick (val car: Car, val imageView: ImageView, val titleView: TextView)
