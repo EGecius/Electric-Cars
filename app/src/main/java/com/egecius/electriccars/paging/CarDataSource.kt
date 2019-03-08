@@ -15,7 +15,7 @@ class CarDataSource(private val carRetrofitService: CarRetrofitService) : PageKe
 
     @SuppressLint("CheckResult")
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
-    	// append your list
+        // append your list
 
         val page = params.key.toInt()
         val result = carRetrofitService.getCarsByPages(page).execute().body()
@@ -23,7 +23,7 @@ class CarDataSource(private val carRetrofitService: CarRetrofitService) : PageKe
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, Car>) {
-        // prepend your list - not implemented
+        // prepend your list - not needed
     }
 
 }
