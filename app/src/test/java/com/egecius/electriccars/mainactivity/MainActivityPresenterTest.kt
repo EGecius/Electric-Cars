@@ -20,6 +20,8 @@ class MainActivityPresenterTest {
 
     private lateinit var mSut: MainActivityPresenter
 
+    private val carList = listOf(Car("Tesla 3", "img_url"))
+    private val resultSuccess: Result<List<Car>> = Result(carList, null)
     private val resultError: Result<List<Car>> = Result(null, Throwable())
 
     @Mock
@@ -51,6 +53,21 @@ class MainActivityPresenterTest {
     private fun whenLiveDataReturnsError() {
         verify(carsLiveData).observe(eq(lifecycleOwner), argumentCaptor.capture())
         val result = resultError
+        argumentCaptor.value.onChanged(result)
+    }
+
+    @Test
+    fun `show list of cars`() {
+        mSut.startPresenting(view, lifecycleOwner)
+
+        whenLiveDataReturnsListOfCars()
+
+        verify(view).showCars(carList)
+    }
+
+    private fun whenLiveDataReturnsListOfCars() {
+        verify(carsLiveData).observe(eq(lifecycleOwner), argumentCaptor.capture())
+        val result = resultSuccess
         argumentCaptor.value.onChanged(result)
     }
 
