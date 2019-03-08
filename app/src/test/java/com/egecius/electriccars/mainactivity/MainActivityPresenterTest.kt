@@ -40,7 +40,7 @@ class MainActivityPresenterTest {
     }
 
     @Test
-    fun showsUserErrorMessage() {
+    fun `shows user error message`() {
         mSut.startPresenting(view, lifecycleOwner)
 
         givenLiveDataWillReturnError()
