@@ -16,14 +16,14 @@ import com.egecius.electriccars.paging.di.DaggerCarListActivityComponent
 import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
-class CarListActivity : AppCompatActivity(), CarListPresenter.View {
+class CarListActivity : AppCompatActivity(), CarListViewModel.View {
 
     private lateinit var adapter: CarPagedListAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
 
     @Inject
-    lateinit var presenter: CarListPresenter
+    lateinit var viewModel: CarListViewModel
 
     override fun showCars(cars: PagedList<Car>) {
         adapter.submitList(cars)
@@ -37,7 +37,7 @@ class CarListActivity : AppCompatActivity(), CarListPresenter.View {
         setupUi()
         injectDependencies()
 
-        presenter.startPresenting(this, this)
+        viewModel.startPresenting(this, this)
     }
 
     private fun setupUi() {

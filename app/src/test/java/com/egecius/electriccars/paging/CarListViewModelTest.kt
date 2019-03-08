@@ -16,14 +16,14 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class CarListPresenterTest {
+class CarListViewModelTest {
 
-    private lateinit var mSut: CarListPresenter
+    private lateinit var mSut: CarListViewModel
 
     @Mock
     lateinit var carsLiveData : LiveData<PagedList<Car>>
     @Mock
-    lateinit var view: CarListPresenter.View
+    lateinit var view: CarListViewModel.View
     @Mock
     lateinit var lifecycleOwner: LifecycleOwner
     @Mock
@@ -33,7 +33,7 @@ class CarListPresenterTest {
 
     @Before
     fun setUp() {
-        mSut = CarListPresenter()
+        mSut = CarListViewModel()
         mSut.init(carsLiveData)
     }
 

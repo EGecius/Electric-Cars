@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.egecius.electriccars.room.Car
 
-class CarListPresenter : ViewModel() {
+class CarListViewModel : ViewModel() {
 
     private lateinit var view: View
     private lateinit var carsLiveData: LiveData<PagedList<Car>>
