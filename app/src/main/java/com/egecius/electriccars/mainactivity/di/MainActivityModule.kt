@@ -1,6 +1,8 @@
 package com.egecius.electriccars.mainactivity.di
 
 import androidx.lifecycle.ViewModelProviders
+import com.egecius.electriccars.app.AndroidSchedulers
+import com.egecius.electriccars.app.Schedulers
 import com.egecius.electriccars.mainactivity.MainActivity
 import com.egecius.electriccars.mainactivity.MainActivityViewModel
 import com.egecius.electriccars.repository.CarsRepository
@@ -13,9 +15,12 @@ import dagger.Provides
 class MainActivityModule(private val mainActivity: MainActivity) {
 
     @Provides
-    fun provideMainActivityPresenter(carsRepository: CarsRepository): MainActivityViewModel {
+    fun provideMainActivityPresenter(
+        carsRepository: CarsRepository,
+        schedulers: Schedulers
+    ): MainActivityViewModel {
         val presenter = ViewModelProviders.of(mainActivity).get(MainActivityViewModel::class.java)
-        presenter.init(carsRepository)
+        presenter.init(carsRepository, schedulers)
         return presenter
     }
 
@@ -24,6 +29,11 @@ class MainActivityModule(private val mainActivity: MainActivity) {
         val carsRetrofitService = RetrofitAdapter().setupRetrofit()
         val carDao = CarsDatabase.getInstance(mainActivity).carDao()
         return CarsRepository(carsRetrofitService, carDao)
+    }
+
+    @Provides
+    fun provideSchedulers(): Schedulers {
+        return AndroidSchedulers()
     }
 
 }
