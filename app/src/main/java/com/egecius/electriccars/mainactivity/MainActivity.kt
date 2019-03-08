@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     @Inject
-    lateinit var presenter: MainActivityPresenter
+    lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUi()
         injectDependencies()
-        presenter.startPresenting(this, this)
+        viewModel.startPresenting(this, this)
     }
 
     private fun setupUi() {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     override fun showLoadingError() {
         Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") {
-                presenter.retryFetching()
+                viewModel.retryFetching()
             }
             .show()
         showRecyclerViewOnly()

@@ -16,9 +16,9 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class MainActivityPresenterTest {
+class MainActivityViewModelTest {
 
-    private lateinit var mSut: MainActivityPresenter
+    private lateinit var mSut: MainActivityViewModel
 
     private val carList = listOf(Car("Tesla 3", "img_url"))
     private val resultSuccess: Result<List<Car>> = Result(carList, null)
@@ -37,7 +37,7 @@ class MainActivityPresenterTest {
 
     @Before
     fun setUp() {
-        mSut = MainActivityPresenter()
+        mSut = MainActivityViewModel()
         mSut.init(carsLiveData)
     }
 

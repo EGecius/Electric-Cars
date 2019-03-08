@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.egecius.electriccars.repository.CarsLiveData
 
-class MainActivityPresenter : ViewModel() {
+class MainActivityViewModel : ViewModel() {
 
     private lateinit var view : MainActivityView
     private lateinit var carsLiveData : CarsLiveData
