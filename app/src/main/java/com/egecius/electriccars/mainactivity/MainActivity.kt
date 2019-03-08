@@ -15,6 +15,7 @@ import com.egecius.electriccars.room.Car
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
+/** This is very similar to CarListActivity, except it uses simple RecyclerView.Adapter  */
 class MainActivity : AppCompatActivity(), MainActivityView {
     private lateinit var progressBar: ProgressBar
 
