@@ -71,4 +71,22 @@ class MainActivityPresenterTest {
         argumentCaptor.value.onChanged(result)
     }
 
+    @Test
+    fun `retries fetching`() {
+        mSut.startPresenting(view, lifecycleOwner)
+
+        mSut.retryFetching()
+
+        verify(carsLiveData).retry()
+    }
+
+    @Test
+    fun `show loading dialog when retrying`() {
+        mSut.startPresenting(view, lifecycleOwner)
+
+        mSut.retryFetching()
+
+        verify(view).showLoadingInProgress()
+    }
+
 }

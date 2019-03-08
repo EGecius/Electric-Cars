@@ -27,7 +27,7 @@ open class CarsLiveData(private val carsRepository: CarsRepository) : LiveData<R
         disposable?.dispose()
     }
 
-    fun retry() {
+    open fun retry() {
         extractValueFromRepository()
     }
 }
