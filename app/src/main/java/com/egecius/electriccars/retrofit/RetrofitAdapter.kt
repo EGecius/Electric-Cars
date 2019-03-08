@@ -18,7 +18,7 @@ class RetrofitAdapter {
 
     fun setupRetrofit(): CarRetrofitService {
         return Retrofit.Builder()
-            .baseUrl(baseUrlHeroku)
+            .baseUrl(mockWebServerBaseUrl)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(createLoggingOkHttpClient())
