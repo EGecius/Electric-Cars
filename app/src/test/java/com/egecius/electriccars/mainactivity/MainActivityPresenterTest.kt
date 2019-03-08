@@ -43,12 +43,12 @@ class MainActivityPresenterTest {
     fun `shows user error message`() {
         mSut.startPresenting(view, lifecycleOwner)
 
-        givenLiveDataWillReturnError()
+        whenLiveDataReturnsError()
 
         verify(view).showLoadingError()
     }
 
-    private fun givenLiveDataWillReturnError() {
+    private fun whenLiveDataReturnsError() {
         verify(carsLiveData).observe(eq(lifecycleOwner), argumentCaptor.capture())
         val result = resultError
         argumentCaptor.value.onChanged(result)
