@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         setContentView(R.layout.activity_main)
         setupUi()
         injectDependencies()
-        viewModel.startPresenting(this, this)
+        viewModel.startPresenting(this)
     }
 
     private fun setupUi() {
@@ -79,6 +79,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     override fun showLoadingInProgress() {
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.stopPresenting()
     }
 
 }

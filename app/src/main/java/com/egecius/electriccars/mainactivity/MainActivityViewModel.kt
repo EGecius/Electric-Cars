@@ -1,43 +1,43 @@
 package com.egecius.electriccars.mainactivity
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.egecius.electriccars.repository.CarsLiveData
+import com.egecius.electriccars.repository.CarsRepository
+import io.reactivex.disposables.CompositeDisposable
 
 class MainActivityViewModel : ViewModel() {
 
     private lateinit var view : MainActivityView
-    private lateinit var carsLiveData : CarsLiveData
+    private lateinit var carsRepository : CarsRepository
+    private val compositeDisposable = CompositeDisposable()
 
-    fun init(carsLiveData: CarsLiveData) {
-        this.carsLiveData = carsLiveData
+    fun init(carsRepository: CarsRepository) {
+        this.carsRepository = carsRepository
     }
 
     fun startPresenting(
-        view: MainActivityView,
-        lifecycleOwner: LifecycleOwner
-    ) {
+        view: MainActivityView) {
         this.view = view
-
-        showCars(lifecycleOwner)
+        showCars()
     }
 
-    private fun showCars(lifecycleOwner: LifecycleOwner) {
-        carsLiveData.observe(lifecycleOwner, Observer {
-
-            val data = it.data
-            if (data != null) {
-                view.showCars(data)
-            } else {
+    private fun showCars() {
+        val disposable = carsRepository.getCars()
+            .subscribe({
+                view.showCars(it)
+            }, {
                 view.showLoadingError()
-            }
-        })
+            })
+
+        compositeDisposable.add(disposable)
     }
 
     fun retryFetching() {
         view.showLoadingInProgress()
-        carsLiveData.retry()
+        showCars()
+    }
+
+    fun stopPresenting() {
+        compositeDisposable.clear()
     }
 
 }

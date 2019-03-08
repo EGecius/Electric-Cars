@@ -5,12 +5,12 @@ import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
 import io.reactivex.Single
 
-class CarsRepository(
+open class CarsRepository(
     private val carRetrofitService: CarRetrofitService,
     private val carDao: CarDao
 ) {
 
-    fun getCars(): Single<List<Car>> {
+    open fun getCars(): Single<List<Car>> {
         return carRetrofitService.getCarsFull()
             .doOnSuccess { cars -> storeCarsInDatabase(cars) }
             .flatMap { returnInternetOrDbData(it) }

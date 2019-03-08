@@ -2,10 +2,11 @@ package com.egecius.electriccars.mainactivity
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.egecius.electriccars.repository.CarsLiveData
+import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.repository.Result
 import com.egecius.electriccars.room.Car
-import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.given
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +26,7 @@ class MainActivityViewModelTest {
     private val resultError: Result<List<Car>> = Result(null, Throwable())
 
     @Mock
-    private lateinit var carsLiveData: CarsLiveData
+    private lateinit var carsRepository: CarsRepository
     @Mock
     private lateinit var lifecycleOwner: LifecycleOwner
 
@@ -38,51 +39,49 @@ class MainActivityViewModelTest {
     @Before
     fun setUp() {
         mSut = MainActivityViewModel()
-        mSut.init(carsLiveData)
+        mSut.init(carsRepository)
     }
 
     @Test
     fun `shows user error message`() {
-        mSut.startPresenting(view, lifecycleOwner)
+        givenDataLoadingWillFail()
 
-        whenLiveDataReturnsError()
+        mSut.startPresenting(view)
 
         verify(view).showLoadingError()
     }
 
-    private fun whenLiveDataReturnsError() {
-        verify(carsLiveData).observe(eq(lifecycleOwner), argumentCaptor.capture())
-        val result = resultError
-        argumentCaptor.value.onChanged(result)
+    private fun givenDataLoadingWillFail() {
+        given(carsRepository.getCars()).willReturn(Single.error(Exception()))
     }
 
     @Test
     fun `show list of cars`() {
-        mSut.startPresenting(view, lifecycleOwner)
+        givenDataLoadingWillSucceed()
 
-        whenLiveDataReturnsListOfCars()
+        mSut.startPresenting(view)
 
         verify(view).showCars(carList)
     }
 
-    private fun whenLiveDataReturnsListOfCars() {
-        verify(carsLiveData).observe(eq(lifecycleOwner), argumentCaptor.capture())
-        val result = resultSuccess
-        argumentCaptor.value.onChanged(result)
+    private fun givenDataLoadingWillSucceed() {
+        given(carsRepository.getCars()).willReturn(Single.just(carList))
     }
 
     @Test
     fun `retries fetching`() {
-        mSut.startPresenting(view, lifecycleOwner)
+        givenDataLoadingWillFail()
+        mSut.startPresenting(view)
 
         mSut.retryFetching()
 
-        verify(carsLiveData).retry()
+        verify(view).showLoadingInProgress()
     }
 
     @Test
     fun `show loading dialog when retrying`() {
-        mSut.startPresenting(view, lifecycleOwner)
+        givenDataLoadingWillFail()
+        mSut.startPresenting(view)
 
         mSut.retryFetching()
 
