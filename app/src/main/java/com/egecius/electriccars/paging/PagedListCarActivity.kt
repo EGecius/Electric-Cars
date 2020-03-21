@@ -17,7 +17,7 @@ import com.egecius.electriccars.room.Car
 import javax.inject.Inject
 
 /** This is very similar to CarListActivity, except it uses PagedListAdapter for RecyclerView  */
-class CarListActivity : AppCompatActivity(), CarListViewModel.View {
+class PagedListCarActivity : AppCompatActivity(), CarListViewModel.View {
 
     private lateinit var adapter: CarPagedListAdapter
     private lateinit var progressBar: ProgressBar

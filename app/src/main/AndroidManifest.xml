@@ -27,7 +27,7 @@
 
         </activity>
 
-        <activity android:name=".paging.CarListActivity">
+        <activity android:name=".paging.PagedListCarActivity">
 
 
         </activity>
