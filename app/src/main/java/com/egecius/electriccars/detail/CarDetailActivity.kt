@@ -23,7 +23,7 @@ class CarDetailActivity : AppCompatActivity() {
     }
 
     private fun setUi() {
-        val car  = intent.extras[KEY_CAR] as Car
+        val car  = intent.extras!!.get(KEY_CAR) as Car
         val binding: ActivityCarDetailBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_car_detail)
 
