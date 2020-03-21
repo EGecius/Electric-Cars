@@ -1,6 +1,5 @@
 package com.egecius.electriccars.mainactivity
 
-import com.egecius.electriccars.app.TestSchedulers
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
 import com.nhaarman.mockitokotlin2.given
@@ -27,7 +26,7 @@ class MainActivityViewModelTest {
     @Before
     fun setUp() {
         sut = MainActivityViewModel()
-        sut.init(carsRepository, TestSchedulers())
+        sut.init(carsRepository)
     }
 
     @Test
