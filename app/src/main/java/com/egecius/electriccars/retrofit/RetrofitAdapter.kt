@@ -1,7 +1,6 @@
 package com.egecius.electriccars.retrofit
 
 import com.egecius.electriccars.room.Car
-import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -40,7 +39,7 @@ interface CarRetrofitService {
     fun getCarsByPages(@Query("page") page: Int): Call<List<Car>>
 
     @GET(ENDPOINT_CARS_FULL)
-    fun getCarsFull(): Single<List<Car>>
+    suspend fun getCarsFull(): List<Car>
 
     companion object {
         const val ENDPOINT_CARS_FULL = "electric_full"
