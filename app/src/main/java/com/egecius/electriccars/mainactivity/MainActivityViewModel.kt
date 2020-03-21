@@ -3,12 +3,18 @@ package com.egecius.electriccars.mainactivity
 import androidx.lifecycle.ViewModel
 import com.egecius.electriccars.app.Schedulers
 import com.egecius.electriccars.repository.CarsRepository
+import com.egecius.electriccars.room.Car
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivityViewModel : ViewModel() {
 
-    private lateinit var view : MainActivityView
-    private lateinit var carsRepository : CarsRepository
+    private lateinit var view: MainActivityView
+    private lateinit var carsRepository: CarsRepository
     private lateinit var schedulers: Schedulers
     private val compositeDisposable = CompositeDisposable()
 
@@ -20,23 +26,22 @@ class MainActivityViewModel : ViewModel() {
         this.schedulers = schedulers
     }
 
-    fun startPresenting(
-        view: MainActivityView) {
+    fun startPresenting(view: MainActivityView) {
         this.view = view
         showCars()
     }
 
     private fun showCars() {
-        val disposable = carsRepository.getCars()
-            .subscribeOn(schedulers.getExecutionScheduler())
-            .observeOn(schedulers.getPostExecutionScheduler())
-            .subscribe({
-                view.showCars(it)
-            }, {
+        CoroutineScope(IO).launch {
+            val cars: List<Car> = carsRepository.getCars()
+            withContext(Main) {
+                view.showCars(cars)
+            }
+        }.invokeOnCompletion {
+            it?.let {
                 view.showLoadingError()
-            })
-
-        compositeDisposable.add(disposable)
+            }
+        }
     }
 
     fun retryFetching() {
