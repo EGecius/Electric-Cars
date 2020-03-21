@@ -15,7 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class MainActivityViewModelTest {
 
-    private lateinit var mSut: MainActivityViewModel
+    private lateinit var sut: MainActivityViewModel
 
     private val carList = listOf(Car("Tesla 3", "img_url"))
 
@@ -26,15 +26,15 @@ class MainActivityViewModelTest {
 
     @Before
     fun setUp() {
-        mSut = MainActivityViewModel()
-        mSut.init(carsRepository, TestSchedulers())
+        sut = MainActivityViewModel()
+        sut.init(carsRepository, TestSchedulers())
     }
 
     @Test
     fun `shows user error message`() {
         givenDataLoadingWillFail()
 
-        mSut.startPresenting(view)
+        sut.startPresenting(view)
 
         verify(view).showLoadingError()
     }
@@ -47,7 +47,7 @@ class MainActivityViewModelTest {
     fun `show list of cars`() {
         givenDataLoadingWillSucceed()
 
-        mSut.startPresenting(view)
+        sut.startPresenting(view)
 
         verify(view).showCars(carList)
     }
@@ -59,9 +59,9 @@ class MainActivityViewModelTest {
     @Test
     fun `retries fetching`() {
         givenDataLoadingWillFail()
-        mSut.startPresenting(view)
+        sut.startPresenting(view)
 
-        mSut.retryFetching()
+        sut.retryFetching()
 
         verify(view).showLoadingInProgress()
     }
@@ -69,9 +69,9 @@ class MainActivityViewModelTest {
     @Test
     fun `show loading dialog when retrying`() {
         givenDataLoadingWillFail()
-        mSut.startPresenting(view)
+        sut.startPresenting(view)
 
-        mSut.retryFetching()
+        sut.retryFetching()
 
         verify(view).showLoadingInProgress()
     }
