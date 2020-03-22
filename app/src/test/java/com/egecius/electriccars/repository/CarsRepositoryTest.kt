@@ -37,77 +37,76 @@ class CarsRepositoryTest {
     }
 
     @Test
-    fun `returns data from internet when db data available`() {
+    fun `returns data from internet when db data available`() = runBlockingTest {
         givenInternetDataAvailable()
         givenDbDataAvailable()
 
-        val testObserver = sut.getCars().test()
+        val result = sut.getCars()
 
-        testObserver.assertResult(dataInternet)
+        assertThat(result).isEqualTo(dataInternet)
     }
 
     @Test
-    fun `returns data from internet when db data missing`() {
+    fun `returns data from internet when db data missing`() = runBlockingTest {
         givenInternetDataAvailable()
         givenDbDataEmpty()
 
-        val testObserver = sut.getCars().test()
+        val result = sut.getCars()
 
-        testObserver.assertResult(dataInternet)
+        assertThat(result).isEqualTo(dataInternet)
     }
 
-    private fun givenDbDataEmpty() {
+    private suspend fun givenDbDataEmpty() {
         given(carDao.loadAllCars()).willReturn(emptyList())
     }
 
-    private fun givenInternetDataAvailable() {
-        given(carRetrofitService.getCarsFull()).willReturn(Single.just(dataInternet))
+    private suspend fun givenInternetDataAvailable() {
+        given(carRetrofitService.getCarsFull()).willReturn(dataInternet)
     }
 
     @Test
-    fun `returns DB data when internet data missing`() {
+    fun `returns DB data when internet data missing`() = runBlockingTest {
         givenInternetDataEmpty()
         givenDbDataAvailable()
 
-        val testObserver = sut.getCars().test()
+        val result = sut.getCars()
 
-        testObserver.assertResult(dataDb)
+        assertThat(result).isEqualTo(dataDb)
     }
 
-    private fun givenDbDataAvailable() {
+    private suspend fun givenDbDataAvailable() {
         given(carDao.loadAllCars()).willReturn(dataDb)
     }
 
-    private fun givenInternetDataEmpty() {
-        given(carRetrofitService.getCarsFull()).willReturn(Single.just(emptyList()))
+    private suspend fun givenInternetDataEmpty() {
+        given(carRetrofitService.getCarsFull()).willReturn(emptyList())
     }
 
     @Test
-    fun `return empty data when both internet and DB missing`() {
+    fun `return empty data when both internet and DB missing`() = runBlockingTest {
         givenInternetDataEmpty()
         givenDbDataEmpty()
 
-        val testObserver = sut.getCars().test()
+        val result = sut.getCars()
 
-        testObserver.assertResult(emptyList())
+        assertThat(result).isEqualTo(emptyList<List<Car>>())
     }
 
     @Test
-    fun `stores to db when internet data received`() {
+    fun `stores to db when internet data received`() = runBlockingTest {
         givenInternetDataAvailable()
 
-        sut.getCars().test()
+        sut.getCars()
 
         verify(carDao).insertCar(carInternet)
     }
 
     @Test
-    fun `does not store to DB when internet data received is empty`() {
+    fun `does not store to DB when internet data received is empty`() = runBlockingTest {
         givenInternetDataEmpty()
 
-        sut.getCars().test()
+        sut.getCars()
 
         verify(carDao, never()).insertCar(any())
     }
-
 }
