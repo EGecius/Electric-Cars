@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
@@ -39,8 +40,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupUi()
         injectDependencies()
+        setupUi()
     }
 
     private fun setupUi() {
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         binding.lifecycleOwner = this
         // Bind ViewModel
         binding.viewModel = viewModel
+
+        viewModel.coroutineLiveData.observe(this, Observer {
+            showCars(it)
+        })
 
         parentLayout = findViewById(R.id.parent_layout)
         progressBar = findViewById(R.id.progress_bar)

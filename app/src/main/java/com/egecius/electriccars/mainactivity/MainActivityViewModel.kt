@@ -1,5 +1,6 @@
 package com.egecius.electriccars.mainactivity
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ class MainActivityViewModel : ViewModel() {
 
     val coroutineLiveData: LiveData<List<Car>> = liveData {
         val cars = carsRepository.getCars()
+        Log.v("Eg:MainActivityViewModel:16", "() cars: $cars")
         emit(cars)
     }
 
