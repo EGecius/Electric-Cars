@@ -1,8 +1,11 @@
 package com.egecius.electriccars.mainactivity
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
 
@@ -19,6 +22,19 @@ class MainActivityViewModel : ViewModel() {
     ) {
         this.view = view
         showCars(lifecycleOwner)
+        startInfiniteLoop()
+    }
+
+    private fun startInfiniteLoop() {
+        viewModelScope.launch {
+            val start = System.currentTimeMillis()
+            while (true) {
+                delay(1000)
+                val diff = System.currentTimeMillis() - start
+                // see how this gets cancelled when the app goes into the background
+                Log.v("Eg:MainActivityViewModel:33", "startInfiniteLoop() diff: $diff")
+            }
+        }
     }
 
     private fun showCars(lifecycleOwner: LifecycleOwner) {
