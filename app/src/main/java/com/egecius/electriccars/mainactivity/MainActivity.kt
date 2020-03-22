@@ -2,13 +2,10 @@ package com.egecius.electriccars.mainactivity
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
 import com.egecius.electriccars.databinding.ActivityMainBinding
 import com.egecius.electriccars.detail.CarDetailActivity
@@ -16,14 +13,11 @@ import com.egecius.electriccars.mainactivity.di.DaggerMainActivityComponent
 import com.egecius.electriccars.mainactivity.di.MainActivityModule
 import com.egecius.electriccars.room.Car
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 /** This is very similar to CarListActivity, except it uses simple RecyclerView.Adapter  */
 class MainActivity : AppCompatActivity(), MainActivityView {
-    private lateinit var progressBar: ProgressBar
-
-    private lateinit var parentLayout: ViewGroup
-    private lateinit var recyclerView: RecyclerView
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
         override fun onClick(carClick: CarClick) {
@@ -45,6 +39,19 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun setupUi() {
+        bindUiWithData()
+        showCarsWhenAvailable()
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.adapter = carRecyclerViewAdapter
+    }
+
+    private fun showCarsWhenAvailable() {
+        viewModel.coroutineLiveData.observe(this, Observer {
+            showCars(it)
+        })
+    }
+
+    private fun bindUiWithData() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_main
         )
@@ -52,16 +59,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         binding.lifecycleOwner = this
         // Bind ViewModel
         binding.viewModel = viewModel
-
-        viewModel.coroutineLiveData.observe(this, Observer {
-            showCars(it)
-        })
-
-        parentLayout = findViewById(R.id.parent_layout)
-        progressBar = findViewById(R.id.progress_bar)
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = carRecyclerViewAdapter
     }
 
     private fun injectDependencies() {
@@ -76,12 +73,12 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun showRecyclerViewOnly() {
-        progressBar.visibility = View.GONE
-        recyclerView.visibility = View.VISIBLE
+        progress_bar.visibility = View.GONE
+        recycler_view.visibility = View.VISIBLE
     }
 
     override fun showLoadingError() {
-        Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(parent_layout, "Loading error", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") {
                 viewModel.retryFetching(this)
             }
@@ -90,8 +87,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun showLoadingInProgress() {
-        progressBar.visibility = View.VISIBLE
-        recyclerView.visibility = View.GONE
+        progress_bar.visibility = View.VISIBLE
+        recycler_view.visibility = View.GONE
     }
 }
 
