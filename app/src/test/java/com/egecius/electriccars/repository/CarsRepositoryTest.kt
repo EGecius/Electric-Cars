@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -19,6 +20,9 @@ import org.mockito.junit.MockitoJUnitRunner
 class CarsRepositoryTest {
 
     private lateinit var sut: CarsRepository
+
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
     @Mock
     lateinit var carRetrofitService: CarRetrofitService
