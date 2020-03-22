@@ -1,6 +1,6 @@
 package com.egecius.electriccars.mainactivity.di
 
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.egecius.electriccars.app.AndroidSchedulers
 import com.egecius.electriccars.app.Schedulers
 import com.egecius.electriccars.mainactivity.MainActivity
@@ -18,7 +18,7 @@ class MainActivityModule(private val mainActivity: MainActivity) {
     fun provideMainActivityPresenter(
         carsRepository: CarsRepository
     ): MainActivityViewModel {
-        val presenter = ViewModelProviders.of(mainActivity).get(MainActivityViewModel::class.java)
+        val presenter = ViewModelProvider(mainActivity).get(MainActivityViewModel::class.java)
         presenter.init(carsRepository)
         return presenter
     }
