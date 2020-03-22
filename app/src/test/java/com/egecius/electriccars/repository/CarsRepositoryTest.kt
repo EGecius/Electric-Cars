@@ -4,14 +4,15 @@ import com.egecius.electriccars.retrofit.CarRetrofitService
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
 import com.nhaarman.mockitokotlin2.any
-import io.reactivex.Single
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
+import kotlinx.coroutines.test.runBlockingTest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.BDDMockito.given
 import org.mockito.Mock
-import org.mockito.Mockito.never
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner.Silent::class)
