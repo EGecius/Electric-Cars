@@ -1,6 +1,9 @@
 package com.egecius.electriccars.repository
 
+import com.egecius.electriccars.retrofit.CarRetrofitService
+import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
+import com.nhaarman.mockitokotlin2.given
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
@@ -19,16 +22,19 @@ class CoroutinesCarsRepositoryTest {
 
     private lateinit var sut: CarsRepository
 
-    private val fakeCarRetrofitService = FakeCarRetrofitService()
+    @Mock
+    lateinit var carRetrofitService : CarRetrofitService
     @Mock
     lateinit var carDao: CarDao
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
+    private val carList = listOf(Car("name", "img"))
+
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
-        sut = CarsRepository(fakeCarRetrofitService, carDao)
+        sut = CarsRepository(carRetrofitService, carDao)
     }
 
     @After
@@ -39,10 +45,14 @@ class CoroutinesCarsRepositoryTest {
 
     @Test
     fun `returns cars from network`() = runBlockingTest {
-        // given - fakeCarRetrofitService wil return a list
+        givenCarServiceWillReturn()
 
         val cars = sut.getCars()
 
-        assertThat(cars).isEqualTo(fakeCarRetrofitService.carsList)
+        assertThat(cars).isEqualTo(carList)
+    }
+
+    private suspend fun givenCarServiceWillReturn() {
+        given(carRetrofitService.getCarsFull()).willReturn(carList)
     }
 }
