@@ -16,11 +16,17 @@ class MainActivityModule(private val mainActivity: MainActivity) {
 
     @Provides
     fun provideMainActivityPresenter(
-        carsRepository: CarsRepository
+        carsRepository: CarsRepository,
+        mainActivityViewModelFactory: MainActivityViewModelFactory
     ): MainActivityViewModel {
-        val presenter = ViewModelProvider(mainActivity).get(MainActivityViewModel::class.java)
+        val presenter = ViewModelProvider(mainActivity, mainActivityViewModelFactory).get(MainActivityViewModel::class.java)
         presenter.init(carsRepository)
         return presenter
+    }
+
+    @Provides
+    fun provideMainActivityViewModelFactory(carsRepository: CarsRepository): MainActivityViewModelFactory {
+        return MainActivityViewModelFactory(carsRepository)
     }
 
     @Provides
