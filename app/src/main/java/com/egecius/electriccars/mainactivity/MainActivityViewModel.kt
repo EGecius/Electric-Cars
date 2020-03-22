@@ -1,6 +1,5 @@
 package com.egecius.electriccars.mainactivity
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -20,7 +19,7 @@ class MainActivityViewModel : ViewModel() {
         this.carsRepository = carsRepository
     }
 
-    fun retryFetching(lifecycleOwner: LifecycleOwner) {
+    fun retryFetching() {
         // TODO: 22/03/2020
     }
 }

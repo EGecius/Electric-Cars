@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 /** This is very similar to CarListActivity, except it uses simple RecyclerView.Adapter  */
-class MainActivity : AppCompatActivity(), MainActivityView {
+class MainActivity : AppCompatActivity() {
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
         override fun onClick(carClick: CarClick) {
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         })
     }
 
-    override fun showCars(cars: List<Car>) {
+    private fun showCars(cars: List<Car>) {
         showRecyclerViewOnly()
         carRecyclerViewAdapter.setData(cars)
     }
@@ -75,23 +75,17 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         recycler_view.adapter = carRecyclerViewAdapter
     }
 
-    override fun showLoadingError() {
+    fun showLoadingError() {
         Snackbar.make(parent_layout, "Loading error", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") {
-                viewModel.retryFetching(this)
+                viewModel.retryFetching()
             }
             .show()
         showRecyclerViewOnly()
     }
 
-    override fun showLoadingInProgress() {
+    fun showLoadingInProgress() {
         progress_bar.visibility = View.VISIBLE
         recycler_view.visibility = View.GONE
     }
-}
-
-interface MainActivityView {
-    fun showCars(cars: List<Car>)
-    fun showLoadingError()
-    fun showLoadingInProgress()
 }
