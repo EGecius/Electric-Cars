@@ -22,11 +22,11 @@ class MainActivityViewModel : ViewModel() {
     ) {
         this.view = view
         showCars(lifecycleOwner)
-        startInfiniteLoop()
+        startInfiniteLoop(lifecycleOwner)
     }
 
-    private fun startInfiniteLoop() {
-        viewModelScope.launch {
+    private fun startInfiniteLoop(lifecycleOwner: LifecycleOwner) {
+        lifecycleOwner.lifecycleScope.launch {
             val start = System.currentTimeMillis()
             while (true) {
                 delay(1000)
