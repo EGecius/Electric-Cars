@@ -4,6 +4,7 @@ import com.egecius.electriccars.retrofit.CarRetrofitService
 import com.egecius.electriccars.room.Car
 import com.egecius.electriccars.room.CarDao
 import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
@@ -29,8 +30,10 @@ class CoroutinesCarsRepositoryTest {
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
-    private val carList = listOf(Car("name", "img"))
-    private val carList2 = listOf(Car("name", "img"), Car("name2", "img2"))
+    private val car0 = Car("name", "img")
+    private val car1 = Car("name2", "img2")
+    private val carList0 = listOf(car0)
+    private val carList1 = listOf(car0, car1)
 
     @Before
     fun setUp() {
@@ -46,11 +49,11 @@ class CoroutinesCarsRepositoryTest {
 
     @Test
     fun `returns cars from network`() = runBlockingTest {
-        givenCarServiceWillReturn(carList)
+        givenCarServiceWillReturn(carList0)
 
         val cars = sut.getCars()
 
-        assertThat(cars).isEqualTo(carList)
+        assertThat(cars).isEqualTo(carList0)
     }
 
     private suspend fun givenCarServiceWillReturn(carList: List<Car>) {
@@ -60,11 +63,11 @@ class CoroutinesCarsRepositoryTest {
     @Test
     fun `returns data from room when network response is empty`() = runBlockingTest {
         givenCarServiceWillReturnEmpty()
-        givenPersistenceWillReturn(carList2)
+        givenPersistenceWillReturn(carList1)
 
         val cars = sut.getCars()
 
-        assertThat(cars).isEqualTo(carList2)
+        assertThat(cars).isEqualTo(carList1)
     }
 
     private suspend fun givenPersistenceWillReturn(carList: List<Car>) {
@@ -73,5 +76,14 @@ class CoroutinesCarsRepositoryTest {
 
     private suspend fun givenCarServiceWillReturnEmpty() {
         given(carRetrofitService.getCarsFull()).willReturn(emptyList())
+    }
+
+    @Test
+    fun `stores car object in persistence`() = runBlockingTest {
+        givenCarServiceWillReturn(listOf(car0))
+
+        sut.getCars()
+
+       verify(carDao).insertCar(car0)
     }
 }
