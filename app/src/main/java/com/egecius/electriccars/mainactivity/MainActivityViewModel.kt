@@ -9,7 +9,7 @@ import com.egecius.electriccars.room.Car
 class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewModel() {
 
     val coroutineLiveData: LiveData<List<Car>> = liveData {
-        val cars = this@MainActivityViewModel.carsRepository.getCars()
+        val cars = carsRepository.getCars()
         emit(cars)
     }
 
