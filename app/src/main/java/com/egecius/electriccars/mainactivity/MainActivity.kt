@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.egecius.electriccars.R
+import com.egecius.electriccars.databinding.ActivityMainBinding
 import com.egecius.electriccars.detail.CarDetailActivity
 import com.egecius.electriccars.mainactivity.di.DaggerMainActivityComponent
 import com.egecius.electriccars.mainactivity.di.MainActivityModule
@@ -37,12 +39,19 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setupUi()
         injectDependencies()
     }
 
     private fun setupUi() {
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main
+        )
+        // Set the LifecycleOwner to be able to observe LiveData objects
+        binding.lifecycleOwner = this
+        // Bind ViewModel
+        binding.viewModel = viewModel
+
         parentLayout = findViewById(R.id.parent_layout)
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.recycler_view)
