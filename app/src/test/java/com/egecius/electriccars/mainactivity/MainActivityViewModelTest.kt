@@ -33,7 +33,7 @@ class MainActivityViewModelTest {
     fun `shows user error message`() {
         givenDataLoadingWillFail()
 
-        sut.startPresenting(view)
+        sut.startPresenting(view,)
 
         verify(view).showLoadingError()
     }
@@ -46,7 +46,7 @@ class MainActivityViewModelTest {
     fun `show list of cars`() {
         givenDataLoadingWillSucceed()
 
-        sut.startPresenting(view)
+        sut.startPresenting(view,)
 
         verify(view).showCars(carList)
     }
@@ -58,7 +58,7 @@ class MainActivityViewModelTest {
     @Test
     fun `retries fetching`() {
         givenDataLoadingWillFail()
-        sut.startPresenting(view)
+        sut.startPresenting(view,)
 
         sut.retryFetching()
 
@@ -68,7 +68,7 @@ class MainActivityViewModelTest {
     @Test
     fun `show loading dialog when retrying`() {
         givenDataLoadingWillFail()
-        sut.startPresenting(view)
+        sut.startPresenting(view,)
 
         sut.retryFetching()
 

@@ -1,48 +1,39 @@
 package com.egecius.electriccars.mainactivity
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
 
     private lateinit var view: MainActivityView
     private lateinit var carsRepository: CarsRepository
-    private lateinit var job: Job
 
     fun init(carsRepository: CarsRepository) {
         this.carsRepository = carsRepository
     }
 
-    fun startPresenting(view: MainActivityView) {
+    fun startPresenting(
+        view: MainActivityView,
+        lifecycleOwner: LifecycleOwner
+    ) {
         this.view = view
-        showCars()
+        showCars(lifecycleOwner)
     }
 
-    private fun showCars() {
-        val job: Job = CoroutineScope(Main).launch {
-            val cars: List<Car> = carsRepository.getCars()
-            view.showCars(cars)
+    private fun showCars(lifecycleOwner: LifecycleOwner) {
+        val liveData: LiveData<List<Car>> = liveData {
+            carsRepository.getCars()
         }
-        job.invokeOnCompletion {
-            it?.let {
-                view.showLoadingError()
-            }
-        }
+        liveData.observe(lifecycleOwner, Observer {
+            view.showCars(it)
+        })
+
+        // TODO: 22/03/2020 implement error handling
     }
 
-    fun retryFetching() {
+    fun retryFetching(lifecycleOwner: LifecycleOwner) {
         view.showLoadingInProgress()
-        showCars()
-    }
-
-    fun stopPresenting() {
-        if (::job.isInitialized) {
-            job.cancel()
-        }
+        showCars(lifecycleOwner)
     }
 }

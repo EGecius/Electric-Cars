@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         setContentView(R.layout.activity_main)
         setupUi()
         injectDependencies()
-        viewModel.startPresenting(this)
+        viewModel.startPresenting(this, this)
     }
 
     private fun setupUi() {
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     override fun showLoadingError() {
         Snackbar.make(parentLayout, "Loading error", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") {
-                viewModel.retryFetching()
+                viewModel.retryFetching(this)
             }
             .show()
         showRecyclerViewOnly()
@@ -80,12 +80,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.stopPresenting()
-    }
-
 }
 
 interface MainActivityView {
