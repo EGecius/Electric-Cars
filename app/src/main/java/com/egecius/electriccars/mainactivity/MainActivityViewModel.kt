@@ -4,11 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivityViewModel : ViewModel() {
 
@@ -26,11 +24,9 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun showCars() {
-        val job: Job = CoroutineScope(IO).launch {
+        val job: Job = CoroutineScope(Main).launch {
             val cars: List<Car> = carsRepository.getCars()
-            withContext(Main) {
-                view.showCars(cars)
-            }
+            view.showCars(cars)
         }
         job.invokeOnCompletion {
             it?.let {

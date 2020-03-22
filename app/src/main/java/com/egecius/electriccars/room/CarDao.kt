@@ -9,10 +9,10 @@ import androidx.room.Query
 interface CarDao {
 
     @Query("SELECT * FROM cars")
-    fun loadAllCars(): List<Car>
+    suspend fun loadAllCars(): List<Car>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCar(car: Car)
+    suspend fun insertCar(car: Car)
 
     @Query("DELETE FROM Cars")
     fun deleteAllCars()

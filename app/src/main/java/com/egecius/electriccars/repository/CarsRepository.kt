@@ -15,7 +15,7 @@ open class CarsRepository(
         return returnInternetOrDbData(carsFull)
     }
 
-    private fun returnInternetOrDbData(dataInternet: List<Car>): List<Car> {
+    private suspend fun returnInternetOrDbData(dataInternet: List<Car>): List<Car> {
         return if (dataInternet.isEmpty()) {
             carDao.loadAllCars()
         } else {
@@ -23,10 +23,9 @@ open class CarsRepository(
         }
     }
 
-    private fun storeCarsInDatabase(cars: List<Car>) {
+    private suspend fun storeCarsInDatabase(cars: List<Car>) {
         for (car in cars) {
             carDao.insertCar(car)
         }
     }
-
 }
