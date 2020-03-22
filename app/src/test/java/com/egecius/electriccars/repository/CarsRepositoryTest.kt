@@ -17,7 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner.Silent::class)
 class CarsRepositoryTest {
 
-    private lateinit var mSut: CarsRepository
+    private lateinit var sut: CarsRepository
 
     @Mock
     lateinit var carRetrofitService: CarRetrofitService
@@ -33,7 +33,7 @@ class CarsRepositoryTest {
 
     @Before
     fun setUp() {
-        mSut = CarsRepository(carRetrofitService, carDao)
+        sut = CarsRepository(carRetrofitService, carDao)
     }
 
     @Test
@@ -41,7 +41,7 @@ class CarsRepositoryTest {
         givenInternetDataAvailable()
         givenDbDataAvailable()
 
-        val testObserver = mSut.getCars().test()
+        val testObserver = sut.getCars().test()
 
         testObserver.assertResult(dataInternet)
     }
@@ -51,7 +51,7 @@ class CarsRepositoryTest {
         givenInternetDataAvailable()
         givenDbDataEmpty()
 
-        val testObserver = mSut.getCars().test()
+        val testObserver = sut.getCars().test()
 
         testObserver.assertResult(dataInternet)
     }
@@ -69,7 +69,7 @@ class CarsRepositoryTest {
         givenInternetDataEmpty()
         givenDbDataAvailable()
 
-        val testObserver = mSut.getCars().test()
+        val testObserver = sut.getCars().test()
 
         testObserver.assertResult(dataDb)
     }
@@ -87,7 +87,7 @@ class CarsRepositoryTest {
         givenInternetDataEmpty()
         givenDbDataEmpty()
 
-        val testObserver = mSut.getCars().test()
+        val testObserver = sut.getCars().test()
 
         testObserver.assertResult(emptyList())
     }
@@ -96,7 +96,7 @@ class CarsRepositoryTest {
     fun `stores to db when internet data received`() {
         givenInternetDataAvailable()
 
-        mSut.getCars().test()
+        sut.getCars().test()
 
         verify(carDao).insertCar(carInternet)
     }
@@ -105,7 +105,7 @@ class CarsRepositoryTest {
     fun `does not store to DB when internet data received is empty`() {
         givenInternetDataEmpty()
 
-        mSut.getCars().test()
+        sut.getCars().test()
 
         verify(carDao, never()).insertCar(any())
     }
