@@ -21,13 +21,9 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     private val carRecyclerViewAdapter = CarRecyclerViewAdapter(object : OnCarClickListener {
         override fun onClick(carClick: CarClick) {
-            showCarDetailScreen(carClick)
+            CarDetailActivity.start(this@MainActivity, carClick)
         }
     })
-
-    private fun showCarDetailScreen(carClick: CarClick) {
-        CarDetailActivity.start(this, carClick)
-    }
 
     @Inject
     lateinit var viewModel: MainActivityViewModel
@@ -38,33 +34,30 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         setupUi()
     }
 
+    private fun injectDependencies() {
+        DaggerMainActivityComponent.builder()
+            .mainActivityModule(MainActivityModule(this))
+            .build().injectInto(this)
+    }
+
     private fun setupUi() {
         bindUiWithData()
         showCarsWhenAvailable()
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.adapter = carRecyclerViewAdapter
-    }
-
-    private fun showCarsWhenAvailable() {
-        viewModel.coroutineLiveData.observe(this, Observer {
-            showCars(it)
-        })
+        setupRecycler()
     }
 
     private fun bindUiWithData() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_main
         )
-        // Set the LifecycleOwner to be able to observe LiveData objects
-        binding.lifecycleOwner = this
-        // Bind ViewModel
+        binding.lifecycleOwner = this // Set the LifecycleOwner to be able to observe LiveData objects
         binding.viewModel = viewModel
     }
 
-    private fun injectDependencies() {
-        DaggerMainActivityComponent.builder()
-            .mainActivityModule(MainActivityModule(this))
-            .build().injectInto(this)
+    private fun showCarsWhenAvailable() {
+        viewModel.coroutineLiveData.observe(this, Observer {
+            showCars(it)
+        })
     }
 
     override fun showCars(cars: List<Car>) {
@@ -75,6 +68,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     private fun showRecyclerViewOnly() {
         progress_bar.visibility = View.GONE
         recycler_view.visibility = View.VISIBLE
+    }
+
+    private fun setupRecycler() {
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.adapter = carRecyclerViewAdapter
     }
 
     override fun showLoadingError() {
