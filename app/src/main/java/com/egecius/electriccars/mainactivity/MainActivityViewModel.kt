@@ -6,17 +6,11 @@ import androidx.lifecycle.liveData
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
 
-class MainActivityViewModel : ViewModel() {
-
-    private lateinit var carsRepository: CarsRepository
+class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewModel() {
 
     val coroutineLiveData: LiveData<List<Car>> = liveData {
-        val cars = carsRepository.getCars()
+        val cars = this@MainActivityViewModel.carsRepository.getCars()
         emit(cars)
-    }
-
-    fun init(carsRepository: CarsRepository) {
-        this.carsRepository = carsRepository
     }
 
     fun retryFetching() {

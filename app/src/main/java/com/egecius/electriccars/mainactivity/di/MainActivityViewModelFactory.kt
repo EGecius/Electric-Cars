@@ -8,9 +8,7 @@ import com.egecius.electriccars.repository.CarsRepository
 class MainActivityViewModelFactory(private val carsRepository: CarsRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.init(carsRepository)
         @Suppress("UNCHECKED_CAST") // taken from Google sample
-        return mainActivityViewModel as T
+        return MainActivityViewModel(carsRepository) as T
     }
 }

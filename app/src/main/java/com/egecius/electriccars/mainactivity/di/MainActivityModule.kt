@@ -16,12 +16,9 @@ class MainActivityModule(private val mainActivity: MainActivity) {
 
     @Provides
     fun provideMainActivityPresenter(
-        carsRepository: CarsRepository,
         mainActivityViewModelFactory: MainActivityViewModelFactory
     ): MainActivityViewModel {
-        val presenter = ViewModelProvider(mainActivity, mainActivityViewModelFactory).get(MainActivityViewModel::class.java)
-        presenter.init(carsRepository)
-        return presenter
+        return ViewModelProvider(mainActivity, mainActivityViewModelFactory).get(MainActivityViewModel::class.java)
     }
 
     @Provides
@@ -40,5 +37,4 @@ class MainActivityModule(private val mainActivity: MainActivity) {
     fun provideSchedulers(): Schedulers {
         return AndroidSchedulers()
     }
-
 }
