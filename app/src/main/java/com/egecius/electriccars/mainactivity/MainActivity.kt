@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         setContentView(R.layout.activity_main)
         setupUi()
         injectDependencies()
-        viewModel.startPresenting(this, this)
     }
 
     private fun setupUi() {
