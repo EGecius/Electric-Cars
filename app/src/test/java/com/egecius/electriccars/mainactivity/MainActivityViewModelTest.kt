@@ -1,22 +1,25 @@
 package com.egecius.electriccars.mainactivity
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
 import com.nhaarman.mockitokotlin2.given
-import io.reactivex.Single
+import kotlinx.coroutines.test.runBlockingTest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+
 
 @RunWith(MockitoJUnitRunner::class)
 class MainActivityViewModelTest {
 
-    private lateinit var sut: MainActivityViewModel
-
-    private val carList = listOf(Car("Tesla 3", "img_url"))
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var carsRepository: CarsRepository
@@ -43,36 +46,12 @@ class MainActivityViewModelTest {
     }
 
     @Test
-    fun `show list of cars`() {
-        givenDataLoadingWillSucceed()
+    fun `live date emits cars list`() = runBlockingTest {
+        given(carsRepository.getCars()).willReturn(listCar)
 
-        sut.startPresenting(view,)
+        val result = sut.coroutineLiveData.value
 
-        verify(view).showCars(carList)
+        // TODO: 22/03/2020 make it pass
+        assertThat(result).isEqualTo(car0)
     }
-
-    private fun givenDataLoadingWillSucceed() {
-        given(carsRepository.getCars()).willReturn(Single.just(carList))
-    }
-
-    @Test
-    fun `retries fetching`() {
-        givenDataLoadingWillFail()
-        sut.startPresenting(view,)
-
-        sut.retryFetching()
-
-        verify(view).showLoadingInProgress()
-    }
-
-    @Test
-    fun `show loading dialog when retrying`() {
-        givenDataLoadingWillFail()
-        sut.startPresenting(view,)
-
-        sut.retryFetching()
-
-        verify(view).showLoadingInProgress()
-    }
-
 }
