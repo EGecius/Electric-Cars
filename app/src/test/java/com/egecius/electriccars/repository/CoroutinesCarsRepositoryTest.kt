@@ -30,6 +30,7 @@ class CoroutinesCarsRepositoryTest {
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     private val carList = listOf(Car("name", "img"))
+    private val carList2 = listOf(Car("name", "img"), Car("name2", "img2"))
 
     @Before
     fun setUp() {
@@ -45,14 +46,32 @@ class CoroutinesCarsRepositoryTest {
 
     @Test
     fun `returns cars from network`() = runBlockingTest {
-        givenCarServiceWillReturn()
+        givenCarServiceWillReturn(carList)
 
         val cars = sut.getCars()
 
         assertThat(cars).isEqualTo(carList)
     }
 
-    private suspend fun givenCarServiceWillReturn() {
+    private suspend fun givenCarServiceWillReturn(carList: List<Car>) {
         given(carRetrofitService.getCarsFull()).willReturn(carList)
+    }
+
+    @Test
+    fun `returns data from room when network response is empty`() = runBlockingTest {
+        givenCarServiceWillReturnEmpty()
+        givenPersistenceWillReturn(carList2)
+
+        val cars = sut.getCars()
+
+        assertThat(cars).isEqualTo(carList2)
+    }
+
+    private suspend fun givenPersistenceWillReturn(carList: List<Car>) {
+        given(carDao.loadAllCars()).willReturn(carList)
+    }
+
+    private suspend fun givenCarServiceWillReturnEmpty() {
+        given(carRetrofitService.getCarsFull()).willReturn(emptyList())
     }
 }
