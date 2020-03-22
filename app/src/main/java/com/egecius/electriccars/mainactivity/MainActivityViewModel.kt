@@ -38,11 +38,11 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun showCars(lifecycleOwner: LifecycleOwner) {
-        val liveData: LiveData<List<Car>> = liveData {
+        val coroutineLiveData: LiveData<List<Car>> = liveData {
             val cars = carsRepository.getCars()
             emit(cars)
         }
-        liveData.observe(lifecycleOwner, Observer {
+        coroutineLiveData.observe(lifecycleOwner, Observer {
             view.showCars(it)
         })
 
