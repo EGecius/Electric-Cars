@@ -3,11 +3,13 @@ package com.egecius.electriccars.mainactivity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
+import com.egecius.electriccars.util.MainCoroutineRule
+import com.egecius.electriccars.util.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.given
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -21,6 +23,11 @@ class MainActivityViewModelTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
+
+    // Sets the main coroutines dispatcher to a TestCoroutineScope for unit testing.
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     @Mock
     private lateinit var carsRepository: CarsRepository
@@ -36,12 +43,14 @@ class MainActivityViewModelTest {
     }
 
     @Test
-    @Ignore // TODO: 23/03/2020 make this test pass
     fun `live date emits cars list`() = runBlockingTest {
         given(carsRepository.getCars()).willReturn(listCar)
 
-        val result = sut.coroutineLiveData.value
+        val result = sut.coroutineLiveData.getOrAwaitValue {
+            // After observing, advance the clock to avoid the delay calls.
+            mainCoroutineRule.advanceUntilIdle()
+        }
 
-        assertThat(result).isEqualTo(car0)
+        assertThat(result).isEqualTo(listCar)
     }
 }
