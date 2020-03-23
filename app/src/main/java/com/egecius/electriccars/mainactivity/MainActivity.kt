@@ -44,6 +44,17 @@ class MainActivity : AppCompatActivity() {
         bindUiWithData()
         showCarsWhenAvailable()
         setupRecycler()
+        updateProgressBar()
+    }
+
+    private fun updateProgressBar() {
+        viewModel.isUpdating.observe(this, Observer { isUpdating->
+            if (isUpdating) {
+                showLoadingInProgress()
+            } else {
+                showRecyclerViewOnly()
+            }
+        })
     }
 
     private fun bindUiWithData() {
@@ -61,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCars(cars: List<Car>) {
-        showRecyclerViewOnly()
         carRecyclerViewAdapter.setData(cars)
     }
 
