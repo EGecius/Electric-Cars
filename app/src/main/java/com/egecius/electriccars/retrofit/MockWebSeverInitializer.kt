@@ -20,6 +20,9 @@ class MockWebSeverInitializer {
     private fun setupMockWebSever() {
         val dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest?): MockResponse {
+
+                Thread.sleep(NETWORK_DELAY_MILLIS)
+
                 if (request?.path.equals("/" + CarRetrofitService.ENDPOINT_CARS_FULL)) {
                     return MockResponse().setBody(getElectricCars())
                 }
@@ -38,12 +41,13 @@ class MockWebSeverInitializer {
     }
 
     private fun getElectricCars(): String {
-        val inputStream = javaClass.getResourceAsStream("/" + "electric_cars.json")
+        val inputStream = javaClass.getResourceAsStream("/" + "electric_cars.json")!!
         return Scanner(inputStream).useDelimiter("\\A").next()
     }
 
     companion object {
-    	const val PORT = 54034
+        private const val NETWORK_DELAY_MILLIS = 300L
+        const val PORT = 54034
         const val BASE_URL: String = "http://localhost:$PORT"
     }
 
