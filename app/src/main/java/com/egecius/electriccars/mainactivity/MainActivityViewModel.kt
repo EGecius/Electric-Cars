@@ -1,5 +1,6 @@
 package com.egecius.electriccars.mainactivity
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,11 +12,19 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
 
     val isUpdating = MutableLiveData(false)
 
-    val coroutineLiveData: LiveData<List<Car>> = liveData {
+    val coroutineLiveData = liveData {
         isUpdating.value = true
+        setIsUpdating(isUpdating)
+
         val cars = carsRepository.getCars()
         emit(cars)
         isUpdating.value = false
+    }
+
+    private fun setIsUpdating(updating: MutableLiveData<Boolean>) {
+    	Log.v("Eg:MainActivityViewModel:24", "setIsUpdating()")
+
+        updating.value = true
     }
 
     fun retryFetching() {
