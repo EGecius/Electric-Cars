@@ -9,7 +9,7 @@ import com.egecius.electriccars.room.Car
 
 class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewModel() {
 
-    val isUpdating = MutableLiveData<Boolean>(false)
+    val isUpdating = MutableLiveData(false)
 
     val coroutineLiveData: LiveData<List<Car>> = liveData {
         isUpdating.value = true
