@@ -1,30 +1,23 @@
 package com.egecius.electriccars.mainactivity
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
+import kotlinx.coroutines.launch
 
 class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewModel() {
 
     val isUpdating = MutableLiveData(false)
 
-    val coroutineLiveData = liveData {
-        isUpdating.value = true
-        setIsUpdating(isUpdating)
+    val coroutineLiveData = MutableLiveData<List<Car>>()
 
-        val cars = carsRepository.getCars()
-        emit(cars)
-        isUpdating.value = false
-    }
-
-    private fun setIsUpdating(updating: MutableLiveData<Boolean>) {
-    	Log.v("Eg:MainActivityViewModel:24", "setIsUpdating()")
-
-        updating.value = true
+    init {
+        viewModelScope.launch {
+            isUpdating.value = true
+            val cars: List<Car> = carsRepository.getCars()
+            coroutineLiveData.value = cars
+            isUpdating.value = false
+        }
     }
 
     fun retryFetching() {
