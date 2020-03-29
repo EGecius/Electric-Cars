@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewModel() {
 
     val isUpdating = MutableLiveData(false)
+    val isError = MutableLiveData(false)
 
     val coroutineLiveData = MutableLiveData<List<Car>>()
 
@@ -20,6 +21,11 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
             isUpdating.value = true
             val cars: List<Car> = carsRepository.getCars()
             coroutineLiveData.value = cars
+            isUpdating.value = false
+        }.invokeOnCompletion {
+            it?.let {
+                isError.value = true
+            }
             isUpdating.value = false
         }
     }

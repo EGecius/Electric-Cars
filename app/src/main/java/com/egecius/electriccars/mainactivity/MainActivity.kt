@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
                 showRecyclerViewOnly()
             }
         })
+        viewModel.isError.observe(this, Observer { isError ->
+            if (isError) {
+                showLoadingError()
+            }
+        })
     }
 
     private fun bindUiWithData() {
