@@ -1,6 +1,8 @@
 package com.egecius.electriccars.mainactivity
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.egecius.electriccars.repository.CarsRepository
 import com.egecius.electriccars.room.Car
 import kotlinx.coroutines.launch
@@ -13,14 +15,13 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     val coroutineLiveData = MutableLiveData<List<Car>>()
 
     init {
-        showCards()
+        fetchCars()
     }
 
-    private fun showCards() {
+    private fun fetchCars() {
         viewModelScope.launch {
             isUpdating.value = true
-            val cars: List<Car> = carsRepository.getCars()
-            coroutineLiveData.value = cars
+            coroutineLiveData.value = carsRepository.getCars()
             isUpdating.value = false
         }.invokeOnCompletion {
             it?.let {
@@ -31,6 +32,6 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     }
 
     fun retryFetching() {
-        showCards()
+        fetchCars()
     }
 }
