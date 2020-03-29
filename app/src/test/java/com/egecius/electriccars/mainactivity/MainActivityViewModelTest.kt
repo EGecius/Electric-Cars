@@ -46,7 +46,7 @@ class MainActivityViewModelTest {
     fun `live date emits cars list`() = runBlockingTest {
         given(carsRepository.getCars()).willReturn(listCar)
 
-        val result = sut.coroutineLiveData.getOrAwaitValue {
+        val result = sut.carsList.getOrAwaitValue {
             // After observing, advance the clock to avoid the delay calls.
             mainCoroutineRule.advanceUntilIdle()
         }

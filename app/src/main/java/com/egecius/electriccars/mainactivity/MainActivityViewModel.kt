@@ -12,7 +12,7 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     val isUpdating = MutableLiveData(false)
     val isError = MutableLiveData(false)
 
-    val coroutineLiveData = MutableLiveData<List<Car>>()
+    val carsList = MutableLiveData<List<Car>>()
 
     init {
         fetchCars()
@@ -21,7 +21,7 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     private fun fetchCars() {
         viewModelScope.launch {
             isUpdating.value = true
-            coroutineLiveData.value = carsRepository.getCars()
+            carsList.value = carsRepository.getCars()
             isUpdating.value = false
         }.invokeOnCompletion {
             it?.let {

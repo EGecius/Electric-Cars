@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCarsWhenAvailable() {
-        viewModel.coroutineLiveData.observe(this, Observer {
+        viewModel.carsList.observe(this, Observer {
             showCars(it)
         })
     }
