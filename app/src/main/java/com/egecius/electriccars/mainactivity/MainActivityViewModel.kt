@@ -12,6 +12,10 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     val coroutineLiveData = MutableLiveData<List<Car>>()
 
     init {
+        showCards()
+    }
+
+    private fun showCards() {
         viewModelScope.launch {
             isUpdating.value = true
             val cars: List<Car> = carsRepository.getCars()
@@ -21,6 +25,6 @@ class MainActivityViewModel(private val carsRepository: CarsRepository) : ViewMo
     }
 
     fun retryFetching() {
-        // TODO: 22/03/2020
+        showCards()
     }
 }
