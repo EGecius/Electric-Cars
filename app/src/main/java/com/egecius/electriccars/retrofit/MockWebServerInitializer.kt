@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.mockwebserver.MockWebServer
 
-class MockWebSeverInitializer {
+class MockWebServerInitializer {
 
     private lateinit var mockWebServer: MockWebServer
 

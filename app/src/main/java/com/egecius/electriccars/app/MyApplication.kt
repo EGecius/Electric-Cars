@@ -3,11 +3,11 @@
 package com.egecius.electriccars.app
 
 import android.app.Application
-import com.egecius.electriccars.retrofit.MockWebSeverInitializer
+import com.egecius.electriccars.retrofit.MockWebServerInitializer
 
 class MyApplication : Application() {
 
-    private val mockWebSeverInitializer = MockWebSeverInitializer()
+    private val mockWebSeverInitializer = MockWebServerInitializer()
 
     override fun onCreate() {
         super.onCreate()
